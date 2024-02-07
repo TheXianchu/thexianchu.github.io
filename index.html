@@ -57,6 +57,8 @@
 </div>
 
 <div id="question-section" class="text-center">
+    <p id="message" class="mb-6">Let me start with wishing you the best birthday (hopefully) yet! You're an amazing woman and I'm grateful to be able these beautiful memories together. I hope I don't have to tell you how much I truly love you; let this day be an example of that. ❤️</p>
+    <p id="started" class="mt-2">So lets get started...</p>
     <p id="question" class="mb-3">Are you excited for your birthday?!</p>
     <button id="yesBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 sm:mr-2">Yes..
         of course
@@ -100,6 +102,8 @@
     document.getElementById('nahBtn').addEventListener('click', function () {
         document.getElementById('hidden-stuff-2').classList.remove('hidden');
         document.getElementById("nahBtn").classList.add('hidden');
+        document.getElementById("message").classList.add('hidden');
+        document.getElementById("started").classList.add('hidden');
         document.getElementById("question").innerText = "ARE YOU EXCITED WOMAN??";
         document.getElementById("yesBtn").innerText = "Okay, fine 😒"
     });
@@ -109,7 +113,7 @@
         document.getElementById('section1-content').innerHTML = `
             <img class="mt-2" src="section1-image.jpg" alt="Section 1 Image">
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-            <div class="section-content">
+            <div class="section-content text-center">
                 <h2 class="text-lg font-semibold mb-2">Early rise..</h2>
                 <p class="text-gray-600">Unfortunately, the both of us are properly fucked and have to either work or go to an early lecture. Don't fret, the fun will come later! Luckily you don't have to worry about breakfast.</p>
             </div>
@@ -122,9 +126,9 @@
         document.getElementById('section2-content').innerHTML = `
             <img class="mt-2" src="https://via.placeholder.com/300" alt="Section 2 Image">
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-            <div class="section-content">
+            <div class="section-content text-center">
                 <h2 class="text-lg font-semibold mb-2">Hangry yet?</h2>
-                <p class="text-gray-600">What is a proper birthday without food? 🤔 Can you guess where we are going yet?</p>
+                <p class="text-gray-600">What is a proper birthday without food? 🤔 Can you guess where we're going?</p>
             </div>
         `;
     } else {
@@ -135,7 +139,7 @@
         document.getElementById('section3-content').innerHTML = `
             <img class="mt-2" src="https://via.placeholder.com/300" alt="Section 3 Image">
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-            <div class="section-content">
+            <div class="section-content text-center">
                 <h2 class="text-lg font-semibold mb-2">Section 3</h2>
                 <p class="text-gray-600">Section 3 content goes here...</p>
             </div>
