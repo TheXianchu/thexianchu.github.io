@@ -54,7 +54,7 @@
 
 <div class="w-full text-center">
     <img src="patti.png" alt="Portrait Image" class="portrait-image mx-auto mb-6 rounded-full h-48 w-48 object-cover">
-    <h1 class="text-3xl font-bold mb-3">Happy Birthday Patti!</h1>
+    <h1 id="birthday-message" class="text-3xl font-bold mb-3 transition-all duration-500 transform scale-100 opacity-100">Happy Birthday Patti!</h1>
 </div>
 
 <div id="hidden-stuff-2" class="hidden mt-4 px-4">
@@ -157,6 +157,41 @@
     } else {
         document.getElementById('section3-content').innerHTML = '<p class="text-center"><strong>Unlocked at 09-02-2024 @ 19:30</strong></p>';
     }
+
+    // Define an array of birthday messages in different languages
+    const birthdayMessages = [
+        "Wszystkiego najlepszego z okazji urodzin Patti!",
+        "Gefeliciteerd Patti!",
+        "¡Feliz Cumpleaños Patti!",
+        "Happy birthday Patti!"
+    ];
+
+    // Function to change the birthday message every 3 seconds with a fancy animation
+    function changeBirthdayMessage() {
+        const birthdayMessageElement = document.getElementById("birthday-message");
+        let currentIndex = 0;
+
+        setInterval(() => {
+            // Scale down and fade out the current message
+            birthdayMessageElement.classList.remove('scale-100', 'opacity-100');
+            birthdayMessageElement.classList.add('scale-90', 'opacity-0');
+
+            setTimeout(() => {
+                // Change the message
+                birthdayMessageElement.textContent = birthdayMessages[currentIndex];
+
+                // Scale up and fade in the new message
+                birthdayMessageElement.classList.remove('scale-90', 'opacity-0');
+                birthdayMessageElement.classList.add('scale-100', 'opacity-100');
+
+                // Move to the next message
+                currentIndex = (currentIndex + 1) % birthdayMessages.length;
+            }, 250); // Adjust timing for smoother transition
+        }, 3000); // Change message every 3 seconds
+    }
+
+    // Call the function when the page is loaded
+    window.onload = changeBirthdayMessage;
 </script>
 
 </body>
