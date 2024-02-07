@@ -61,7 +61,7 @@
 </div>
 
 <div id="question-section" class="text-center">
-    <p id="message-0" class="mb-6">Let me start by wishing you the best birthday (hopefully) yet! You're an amazing woman and I'm grateful to be able these beautiful memories together</p>
+    <p id="message-0" class="mb-6">Let me start by wishing you the best birthday (hopefully) yet! You're an amazing woman and I'm grateful to be able these beautiful memories together.</p>
     <p id="message-1" class="mb-6"> I hope I don't have to tell you how much I truly love you; let this day be an example of that. ❤️</p>
     <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
     <p id="started" class="mt-2">So lets get started...</p>
@@ -74,6 +74,8 @@
 
 <!-- Sections -->
 <div id="hidden-stuff-1" class="hidden px-4 w-full flex flex-wrap justify-center">
+    <p id="message-2" class="text-center mb-6"> Here you'll find your schedule for today. Be sure to come back regularly, because with time, more information will become available. 😉</p>
+
     <div class="w-full sm:w-1/3 px-2 mt-5">
         <div class="section-card" id="section1-content"></div>
     </div>
@@ -123,7 +125,7 @@
             </div>
         `;
     } else {
-        document.getElementById('section1-content').innerHTML = '<p class="text-center">Unlocked at 09-02-2024 @ 07:00 - come back later!</p>';
+        document.getElementById('section1-content').innerHTML = '<p class="text-center"><strong>Unlocked at 09-02-2024 @ 07:00</strong></p>';
     }
 
     if (isAvailable('2024-02-09T15:00:00')) {
@@ -136,7 +138,7 @@
             </div>
         `;
     } else {
-        document.getElementById('section2-content').innerHTML = '<p class="text-center">Unlocked at 09-02-2024 @ 15:00 - come back later!</p>';
+        document.getElementById('section2-content').innerHTML = '<p class="text-center"><strong>Unlocked at 09-02-2024 @ 15:00</strong></p>';
     }
 
     if (isAvailable('2024-02-09T19:30:00')) {
@@ -152,7 +154,7 @@
             </div>
         `;
     } else {
-        document.getElementById('section3-content').innerHTML = '<p class="text-center">Unlocked at 09-02-2024 @ 19:30 - come back later!</p>';
+        document.getElementById('section3-content').innerHTML = '<p class="text-center"><strong>Unlocked at 09-02-2024 @ 19:30</strong></p>';
     }
 </script>
 
