@@ -17,8 +17,9 @@
 
         .section-card img {
             width: 100%;
-            height: 200px;
+            height: auto;
             object-fit: contain; /* Set to contain */
+            border-radius: 8px; /* Rounded corners */
         }
 
         .section-card .section-content {
@@ -41,7 +42,9 @@
 
 <div id="question-section" class="text-center">
     <p id="question" class="mb-3">Are you excited for your birthday?!</p>
-    <button id="yesBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 sm:mr-2">Yes.. of course</button>
+    <button id="yesBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 sm:mr-2">Yes..
+        of course
+    </button>
     <button id="nahBtn" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded sm:ml-2">Nahh</button>
 </div>
 
@@ -76,13 +79,13 @@
     }
 
     // JavaScript code
-    document.getElementById('yesBtn').addEventListener('click', function() {
+    document.getElementById('yesBtn').addEventListener('click', function () {
         document.getElementById('hidden-stuff-1').classList.remove('hidden');
         document.getElementById('hidden-stuff-2').classList.add('hidden');
         document.getElementById('question-section').classList.add('hidden');
     });
 
-    document.getElementById('nahBtn').addEventListener('click', function() {
+    document.getElementById('nahBtn').addEventListener('click', function () {
         document.getElementById('hidden-stuff-2').classList.remove('hidden');
         document.getElementById("nahBtn").classList.add('hidden');
         document.getElementById("question").innerText = "ARE YOU EXCITED WOMAN??";
@@ -93,9 +96,10 @@
     if (!isAvailable('2024-02-09T07:00:00')) {
         document.getElementById('section1-content').innerHTML = `
             <img class="mt-2" src="section1-image.jpg" alt="Section 1 Image">
+            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
             <div class="section-content">
-                <h2 class="text-lg font-semibold mb-2">Section 1</h2>
-                <p class="text-gray-600">Section 1 content goes here...</p>
+                <h2 class="text-lg font-semibold mb-2">Early rise..</h2>
+                <p class="text-gray-600">Unfortunately, the both of us are properly fucked and have to either work or go to an early lecture. Don't fret, the fun will come later! Luckily you don't have to worry about breakfast.</p>
             </div>
         `;
     } else {
@@ -105,6 +109,7 @@
     if (isAvailable('2024-02-09T15:00:00')) {
         document.getElementById('section2-content').innerHTML = `
             <img class="mt-2" src="https://via.placeholder.com/300" alt="Section 2 Image">
+            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
             <div class="section-content">
                 <h2 class="text-lg font-semibold mb-2">Section 2</h2>
                 <p class="text-gray-600">Section 2 content goes here...</p>
@@ -117,6 +122,7 @@
     if (isAvailable('2024-02-09T19:30:00')) {
         document.getElementById('section3-content').innerHTML = `
             <img class="mt-2" src="https://via.placeholder.com/300" alt="Section 3 Image">
+            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
             <div class="section-content">
                 <h2 class="text-lg font-semibold mb-2">Section 3</h2>
                 <p class="text-gray-600">Section 3 content goes here...</p>
