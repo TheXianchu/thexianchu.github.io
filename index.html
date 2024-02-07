@@ -112,7 +112,7 @@
     });
 
     // Show or hide sections based on current date and time
-    if (isAvailable('2024-02-09T07:00:00')) {
+    if (!isAvailable('2024-02-09T07:00:00')) {
         document.getElementById('section1-content').innerHTML = `
             <img class="mt-2 px-2" src="section1-image.jpg" alt="Section 1 Image">
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
@@ -126,7 +126,7 @@
         document.getElementById('section1-content').innerHTML = '<p class="text-center">Unlocked at 09-02-2024 @ 07:00 - come back later!</p>';
     }
 
-    if (isAvailable('2024-02-09T15:00:00')) {
+    if (!isAvailable('2024-02-09T15:00:00')) {
         document.getElementById('section2-content').innerHTML = `
             <img class="mt-2 px-2" src="tilburg.jpeg" alt="Section 2 Image">
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
@@ -139,7 +139,7 @@
         document.getElementById('section2-content').innerHTML = '<p class="text-center">Unlocked at 09-02-2024 @ 15:00 - come back later!</p>';
     }
 
-    if (isAvailable('2024-02-09T19:30:00')) {
+    if (!isAvailable('2024-02-09T19:30:00')) {
         document.getElementById('section3-content').innerHTML = `
             <img class="mt-2 px-2" src="doloris.jpeg" alt="Section 3 Image">
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
