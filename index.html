@@ -114,11 +114,12 @@
     // Show or hide sections based on current date and time
     if (!isAvailable('2024-02-09T07:00:00')) {
         document.getElementById('section1-content').innerHTML = `
-            <img class="mt-2" src="section1-image.jpg" alt="Section 1 Image">
+            <img class="mt-2 px-2" src="section1-image.jpg" alt="Section 1 Image">
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
             <div class="section-content text-center">
                 <h2 class="text-lg font-semibold mb-2">Early rise..</h2>
-                <p class="text-gray-600">Unfortunately, the both of us are properly fucked and have to either work or go to an early lecture. Don't fret, the fun will come later! Luckily you don't have to worry about breakfast.</p>
+                <p class="text-gray-600">Unfortunately, the both of us are properly fucked and have to either work or go to an early lecture. Don't fret, the fun will come later!</p>
+                <p class="mt-2 text-gray-600"> Luckily you don't have to worry about breakfast.</p>
             </div>
         `;
     } else {
@@ -127,7 +128,7 @@
 
     if (!isAvailable('2024-02-09T15:00:00')) {
         document.getElementById('section2-content').innerHTML = `
-            <img class="mt-2" src="https://via.placeholder.com/300" alt="Section 2 Image">
+            <img class="mt-2 px-2" src="tilburg.jpeg" alt="Section 2 Image">
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
             <div class="section-content text-center">
                 <h2 class="text-lg font-semibold mb-2">Hangry yet?</h2>
@@ -140,11 +141,14 @@
 
     if (!isAvailable('2024-02-09T19:30:00')) {
         document.getElementById('section3-content').innerHTML = `
-            <img class="mt-2" src="https://via.placeholder.com/300" alt="Section 3 Image">
+            <img class="mt-2 px-2" src="doloris.jpeg" alt="Section 3 Image">
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
             <div class="section-content text-center">
                 <h2 class="text-lg font-semibold mb-2">That hunger better be satisfied now!</h2>
-                <p class="text-gray-600">It's time for something exciting! The only tip I can give you is that we won't only be standing upright. Let's head to the city together.</p>
+                <p class="text-gray-600">It's time for something exciting!</p>
+                <p class="text-gray-600">Let's head to the city together.</p>
+
+                <p class="mt-2 text-gray-600"><strong>Tip:</strong> We won't be standing upright the whole time.</p>
             </div>
         `;
     } else {
