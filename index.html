@@ -16,7 +16,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .section-card img {
+        .section-card image {
             width: 100%;
             height: auto;
             object-fit: contain; /* Set to contain */
@@ -62,7 +62,7 @@
 </div>
 
 <div id="question-section" class="text-center">
-    <p id="message-0" class="mb-6">Let me start by wishing you the best birthday (hopefully) yet! You're an amazing woman and I'm grateful to be able these beautiful memories together.</p>
+    <p id="message-0" class="mb-6">Let me start by wishing you the best birthday (hopefully) yet! You're an amazing woman and I'm grateful to be able to make these beautiful memories together.</p>
     <p id="message-1" class="mb-6"> I hope I don't have to tell you how much I truly love you; let this day be an example of that. ❤️</p>
     <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
     <p id="started" class="mt-2">So lets get started...</p>
@@ -117,7 +117,7 @@
     // Show or hide sections based on current date and time
     if (isAvailable('2024-02-09T07:00:00')) {
         document.getElementById('section1-content').innerHTML = `
-            <img class="mt-2 px-2" src="section1-image.jpg" alt="Section 1 Image">
+            <img class="mt-2 px-2 image" src="section1-image.jpg" alt="Section 1 Image">
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
             <div class="section-content text-center">
                 <h2 class="text-lg font-semibold mb-2">Early rise..</h2>
@@ -131,11 +131,12 @@
 
     if (isAvailable('2024-02-09T15:00:00')) {
         document.getElementById('section2-content').innerHTML = `
-            <img class="mt-2 px-2" src="tilburg.jpeg" alt="Section 2 Image">
+            <img class="mt-2 px-2 image" src="tilburg.jpeg" alt="Section 2 Image">
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
             <div class="section-content text-center">
                 <h2 class="text-lg font-semibold mb-2">Hangry yet?</h2>
                 <p class="text-gray-600">What is a proper birthday without food? 🤔 Can you guess where we're going?</p>
+                 <img class="mt-2 px-2 object-contain h-28 w-96" src="michelin.webp" alt="Section 2 Image">
             </div>
         `;
     } else {
@@ -144,7 +145,7 @@
 
     if (isAvailable('2024-02-09T19:30:00')) {
         document.getElementById('section3-content').innerHTML = `
-            <img class="mt-2 px-2" src="doloris.jpeg" alt="Section 3 Image">
+            <img class="mt-2 px-2 image" src="doloris.jpeg" alt="Section 3 Image">
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
             <div class="section-content text-center">
                 <h2 class="text-lg font-semibold mb-2">That hunger better be satisfied now!</h2>
