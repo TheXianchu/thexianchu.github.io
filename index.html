@@ -41,7 +41,7 @@
         /* Scrolling hidden content */
         #hidden-stuff-1, #hidden-stuff-2 {
             overflow-y: auto;
-            max-height: calc(100vh - 450px); /* Adjust according to your needs */
+            max-height: calc(100vh - 400px); /* Adjust according to your needs */
             width: 100%;
         }
 
@@ -98,12 +98,13 @@
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen">
+<body class="flex flex-col items-center justify-center overflow-hidden">
 
-<div class="w-full text-center flex flex-col items-center justify-center">
+<div class="w-full text-center flex flex-col items-center justify-center mt-4">
     <img src="patti.png" alt="Portrait Image" class="portrait-image mx-auto mb-6 rounded-full h-48 w-48 object-cover">
     <h1 id="birthday-message" class="text-3xl font-bold mb-3 transition-all duration-500 transform scale-100 opacity-100 unlocked-text">Happy Birthday Patti!</h1>
 </div>
+
 
 <div id="hidden-stuff-2" class="hidden mt-4 px-4">
     <h3 class="text-center unlocked-text">Ha ha, wearing the funny pants today aren't we? Too bad you don't have a choice 🙃</h3>
