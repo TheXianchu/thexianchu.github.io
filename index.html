@@ -101,7 +101,7 @@
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen">
 
-<div class="w-full text-center flex flex-col items-center justify-center">
+<div id="birthday-div" class="w-full text-center flex flex-col items-center justify-center">
     <img src="patti.png" alt="Portrait Image" class="portrait-image mx-auto mb-6 rounded-full h-48 w-48 object-cover">
     <h1 id="birthday-message" class="text-3xl font-bold mb-3 transition-all duration-500 transform scale-100 opacity-100 unlocked-text">Happy Birthday Patti!</h1>
 </div>
@@ -163,6 +163,7 @@
         document.getElementById('hidden-stuff-1').classList.remove('hidden');
         document.getElementById('hidden-stuff-2').classList.add('hidden');
         document.getElementById('question-section').classList.add('hidden');
+        document.getElementById('birthday-div').classList.add('mt-4');
     });
 
     document.getElementById('nahBtn').addEventListener('click', function () {
@@ -259,12 +260,12 @@
         }, 3000); // Change message every 3 seconds
     }
 
-    // Call the function when the page is loaded
-    window.onload = function () {
+    // Call the function when the DOM content is loaded
+    document.addEventListener('DOMContentLoaded', function () {
         changeBirthdayMessage();
         // Scroll to the bottom of the page
         window.scrollTo(0, document.body.scrollHeight);
-    };
+    });
 </script>
 
 </body>
