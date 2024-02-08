@@ -24,11 +24,6 @@
             padding: 20px;
         }
 
-        /* Adjust portrait image position */
-        .portrait-image {
-            border: 2px solid #d1d5db; /* Grey border */
-        }
-
         /* Sticky header and footer */
         #question-section, #hidden-stuff-2 {
             position: sticky;
@@ -39,8 +34,8 @@
         }
 
         /* Scrolling hidden content */
-        #hidden-stuff-1, #hidden-stuff-2 {
-            overflow-y: auto;
+        #hidden-stuff-1 {
+            overflow-y: auto; /* Make only this section scrollable */
             max-height: calc(100vh - 400px); /* Adjust according to your needs */
             width: 100%;
             margin-bottom: auto;
