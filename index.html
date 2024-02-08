@@ -189,11 +189,12 @@
                 <p class="mt-2 text-gray-600"> Luckily you don't have to worry about breakfast.</p>
             </div>
         `;
+        scrollToBottom();
     } else {
         document.getElementById('section1-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 09-02-2024 @ 06:30</p>';
     }
 
-    if (isAvailable('2024-02-09T15:00:00')) {
+    if (!isAvailable('2024-02-09T15:00:00')) {
         document.getElementById('section2-content').innerHTML = `
             <div class="w-full h-64 overflow-hidden">
                 <img class="object-cover w-full h-full" src="tilburg.jpeg" alt="Section 2 Image">
@@ -206,11 +207,12 @@
                 <img class="mt-2 px-2 object-contain h-28 w-96" src="michelin.webp" alt="Section 2 Image">
             </div>
         `;
+        scrollToBottom();
     } else {
         document.getElementById('section2-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 09-02-2024 @ 15:00</p>';
     }
 
-    if (isAvailable('2024-02-09T19:30:00')) {
+    if (!isAvailable('2024-02-09T19:30:00')) {
         document.getElementById('section3-content').innerHTML = `
             <div class="w-full h-64 overflow-hidden">
                 <img class="object-cover w-full h-full" src="doloris.jpeg" alt="Section 3 Image">
@@ -223,6 +225,7 @@
                 <p class="mt-2 text-gray-600"><strong>Tip:</strong> We won't be standing upright the whole time.</p>
             </div>
         `;
+        scrollToBottom();
     } else {
         document.getElementById('section3-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 09-02-2024 @ 19:30</p>';
     }
@@ -259,11 +262,14 @@
         }, 3000); // Change message every 3 seconds
     }
 
+    // Function to scroll to the bottom of the page
+    function scrollToBottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
     // Call the function when the page is loaded
     window.onload = function () {
         changeBirthdayMessage();
-        // Scroll to the bottom of the page
-        window.scrollTo(0, document.body.scrollHeight);
     };
 </script>
 
