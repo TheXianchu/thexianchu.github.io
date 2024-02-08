@@ -260,7 +260,11 @@
     }
 
     // Call the function when the page is loaded
-    window.onload = changeBirthdayMessage;
+    window.onload = function () {
+        changeBirthdayMessage();
+        // Scroll to the bottom of the page
+        window.scrollTo(0, document.body.scrollHeight);
+    };
 </script>
 
 </body>
