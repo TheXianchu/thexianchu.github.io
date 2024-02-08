@@ -43,6 +43,7 @@
             overflow-y: auto;
             max-height: calc(100vh - 400px); /* Adjust according to your needs */
             width: 100%;
+            margin-bottom: auto;
         }
 
         /* Footer styles */
@@ -53,7 +54,6 @@
             background-color: white; /* Match your background */
             padding: 5px;
             z-index: 999; /* Ensure footer is above other content */
-            margin-top: 10px;
         }
 
         @keyframes bounce {
@@ -101,7 +101,7 @@
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen">
 
-<div class="w-full text-center flex flex-col items-center justify-center">
+<div class="w-full text-center flex flex-col items-center justify-center mt-4">
     <img src="patti.png" alt="Portrait Image" class="portrait-image mx-auto mb-6 rounded-full h-48 w-48 object-cover">
     <h1 id="birthday-message" class="text-3xl font-bold mb-3 transition-all duration-500 transform scale-100 opacity-100 unlocked-text">Happy Birthday Patti!</h1>
 </div>
@@ -190,7 +190,6 @@
                 <p class="mt-2 text-gray-600"> Luckily you don't have to worry about breakfast.</p>
             </div>
         `;
-        scrollToBottom();
     } else {
         document.getElementById('section1-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 09-02-2024 @ 06:30</p>';
     }
@@ -208,7 +207,6 @@
                 <img class="mt-2 px-2 object-contain h-28 w-96" src="michelin.webp" alt="Section 2 Image">
             </div>
         `;
-        scrollToBottom();
     } else {
         document.getElementById('section2-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 09-02-2024 @ 15:00</p>';
     }
@@ -226,7 +224,6 @@
                 <p class="mt-2 text-gray-600"><strong>Tip:</strong> We won't be standing upright the whole time.</p>
             </div>
         `;
-        scrollToBottom();
     } else {
         document.getElementById('section3-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 09-02-2024 @ 19:30</p>';
     }
@@ -263,14 +260,11 @@
         }, 3000); // Change message every 3 seconds
     }
 
-    // Function to scroll to the bottom of the page
-    function scrollToBottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
     // Call the function when the page is loaded
     window.onload = function () {
         changeBirthdayMessage();
+        // Scroll to the bottom of the page
+        window.scrollTo(0, document.body.scrollHeight);
     };
 </script>
 
