@@ -170,6 +170,9 @@
         document.getElementById('hidden-stuff-2').classList.add('hidden');
         document.getElementById('question-section').classList.add('hidden');
         document.getElementById('birthday-div').classList.add('mt-4');
+
+        // Add focus to a non-focusable element to prevent automatic scrolling
+        document.getElementById('birthday-div').focus();
     });
 
     document.getElementById('nahBtn').addEventListener('click', function () {
