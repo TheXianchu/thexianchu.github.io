@@ -178,7 +178,7 @@
     });
 
     // Show or hide sections based on current date and time
-    if (!isAvailable('2024-02-09T06:30:00')) {
+    if (isAvailable('2024-02-09T06:30:00')) {
         document.getElementById('section1-content').innerHTML = `
             <div class="w-full h-64 overflow-hidden">
                 <img class="object-cover w-full h-full" src="patka.png" alt="Section 1 Image">
