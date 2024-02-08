@@ -14,6 +14,7 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-height: 80vh; /* Adjust according to your needs */
         }
 
         .section-card .section-content {
@@ -22,7 +23,6 @@
 
         /* Adjust portrait image position */
         .portrait-image {
-            margin-top: -10%; /* Adjust as needed */
             border: 2px solid #d1d5db; /* Grey border */
         }
 
@@ -38,8 +38,18 @@
         /* Scrolling hidden content */
         #hidden-stuff-1, #hidden-stuff-2 {
             overflow-y: auto;
-            max-height: calc(100vh - 340px); /* Adjust according to your needs */
+            max-height: calc(100vh - 450px); /* Adjust according to your needs */
             width: 100%;
+        }
+
+        /* Footer styles */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: white; /* Match your background */
+            padding: 5px;
+            z-index: 999; /* Ensure footer is above other content */
         }
     </style>
 </head>
@@ -79,6 +89,12 @@
         <div class="section-card" id="section3-content"></div>
     </div>
 </div>
+
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 w-full bg-gray-800 text-white text-center py-1">
+    <p class="mb-2">Made with ❤️ by your favorite person</p>
+    <p>© 2024 Patti's Birthday</p>
+</footer>
 
 <!-- Include JavaScript -->
 <script>
