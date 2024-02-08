@@ -24,6 +24,11 @@
             padding: 20px;
         }
 
+        /* Adjust portrait image position */
+        .portrait-image {
+            border: 2px solid #d1d5db; /* Grey border */
+        }
+
         /* Sticky header and footer */
         #question-section, #hidden-stuff-2 {
             position: sticky;
@@ -34,8 +39,8 @@
         }
 
         /* Scrolling hidden content */
-        #hidden-stuff-1 {
-            overflow-y: auto; /* Make only this section scrollable */
+        #hidden-stuff-1, #hidden-stuff-2 {
+            overflow-y: auto;
             max-height: calc(100vh - 400px); /* Adjust according to your needs */
             width: 100%;
             margin-bottom: auto;
@@ -49,6 +54,14 @@
             background-color: white; /* Match your background */
             padding: 5px;
             z-index: 999; /* Ensure footer is above other content */
+        }
+
+        /* Media query for mobile devices */
+        @media screen and (max-width: 768px) {
+            #hidden-stuff-1 {
+                overflow-y: auto; /* Make only this section scrollable on mobile */
+                max-height: calc(100vh - 200px); /* Adjust according to your needs for mobile */
+            }
         }
 
         @keyframes bounce {
