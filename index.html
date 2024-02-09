@@ -53,17 +53,12 @@
 
         /* Footer styles */
         footer {
-            /* position: fixed; */ /* Remove fixed positioning */
+            position: fixed;
             bottom: 0;
             width: 100%;
             background-color: white; /* Match your background */
             padding: 5px;
             z-index: 999; /* Ensure footer is above other content */
-        }
-
-        body {
-            overflow-y: auto; /* Enable vertical scrolling */
-            overscroll-behavior-y: none; /* Disable rubber-banding effect */
         }
 
         @keyframes bounce {
@@ -146,7 +141,9 @@
     <div class="w-full sm:w-1/3 px-2 mt-5">
         <div class="section-card" id="section1-content"></div>
     </div>
-    <div class="w-full sm:w-1/3 px-2 mt-5">
+    <div class="w-full sm:w-
+
+1/3 px-2 mt-5">
         <div class="section-card" id="section2-content"></div>
     </div>
     <div class="w-full sm:w-1/3 px-2 mt-5">
@@ -155,7 +152,7 @@
 </div>
 
 <!-- Footer -->
-<footer class="bottom-0 left-0 w-full bg-gray-800 text-white text-center py-1">
+<footer class="bg-gray-800 text-white text-center py-1 mt-auto">
     <p class="mt-1 mb-2 text-md">Made with <i class="fas fa-heart text-red-500"></i> by your favourite person</p>
     <p class="text-sm mb-1">© 2024 Patti's Birthday</p>
 </footer>
@@ -270,7 +267,9 @@
                 birthdayMessageElement.classList.add('scale-100', 'opacity-100');
 
                 // Move to the next message
-                currentIndex = (currentIndex + 1) % birthdayMessages.length;
+                currentIndex = (currentIndex + 1)
+
+                    % birthdayMessages.length;
             }, 250); // Adjust timing for smoother transition
         }, 3000); // Adjust timing for message duration
     }
