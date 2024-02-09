@@ -146,6 +146,9 @@
     <div class="w-full sm:w-1/3 px-2 mt-5">
         <div class="section-card" id="section3-content"></div>
     </div>
+    <div class="w-full sm:w-1/3 px-2 mt-5">
+        <div class="section-card" id="section4-content"></div>
+    </div>
 </div>
 
 <script>
@@ -196,28 +199,45 @@
         document.getElementById('section1-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 09-02-2024 @ 06:30</p>';
     }
 
-    if (isAvailable('2024-02-09T15:00:00')) {
+    if (isAvailable('2024-02-09T16:00:00')) {
         document.getElementById('section2-content').innerHTML = `
             <div class="w-full h-64 overflow-hidden">
-                <img class="object-cover w-full h-full" src="tilburg.jpeg" alt="Section 2 Image">
+                <img class="object-cover w-full h-full" src="beer.jpg" alt="Section 2 Image">
+            </div>
+            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
+            <div class="section-content text-center">
+                <h2 class="text-lg font-semibold mb-2">Finally, weekend!</h2>
+                <p class="text-gray-600">I say it's time for a drink, don't you agree?</p>
+                <p class="mt-2 text-gray-600">Let's go back to where it all started..</p>
+            </div>
+        `;
+        scrollToBottom("hidden-stuff-1");
+    } else {
+        document.getElementById('section2-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 09-02-2024 @ 16:00</p>';
+    }
+
+    if (isAvailable('2024-02-09T18:00:00')) {
+        document.getElementById('section3-content').innerHTML = `
+            <div class="w-full h-64 overflow-hidden">
+                <img class="object-cover w-full h-full" src="tilburg.jpeg" alt="Section 3 Image">
             </div>
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
             <div class="section-content text-center">
                 <h2 class="text-lg font-semibold mb-2">Hangry yet?</h2>
                 <p class="text-gray-600">What is a proper birthday without food.. 🤔 Can you guess where we're going?</p>
                 <p class="mt-2 text-gray-600">Make sure you come with a big appetite!</p>
-                <img class="mt-2 px-2 object-contain h-28 w-96" src="michelin.webp" alt="Section 2 Image">
+                <img class="mt-2 px-2 object-contain h-28 w-96" src="michelin.webp" alt="Section 3 Image">
             </div>
         `;
         scrollToBottom("hidden-stuff-1");
     } else {
-        document.getElementById('section2-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 09-02-2024 @ 15:00</p>';
+        document.getElementById('section3-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 09-02-2024 @ 18:00</p>';
     }
 
     if (isAvailable('2024-02-09T19:30:00')) {
-        document.getElementById('section3-content').innerHTML = `
+        document.getElementById('section4-content').innerHTML = `
             <div class="w-full h-64 overflow-hidden">
-                <img class="object-cover w-full h-full" src="doloris.jpeg" alt="Section 3 Image">
+                <img class="object-cover w-full h-full" src="doloris.jpeg" alt="Section 4 Image">
             </div>
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
             <div class="section-content text-center">
@@ -228,7 +248,7 @@
             </div>
         `;
     } else {
-        document.getElementById('section3-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 09-02-2024 @ 19:30</p>';
+        document.getElementById('section4-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 09-02-2024 @ 19:30</p>';
     }
 
     // Define an array of birthday messages in different languages
