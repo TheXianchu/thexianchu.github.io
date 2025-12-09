@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.ico">
     <title>Merry Christmas, My Love!</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -53,35 +56,80 @@
             position: relative;
         }
 
-        .profile-frame {
+        /* Polaroid Photo Frame */
+        .polaroid-frame {
             position: relative;
-            width: 200px;
-            height: 200px;
+            width: 180px;
             margin-bottom: 30px;
-            border-radius: 50%;
-            padding: 8px;
-            background: linear-gradient(135deg, #B91C1C, #047857, #FFC107);
-            animation: rotate 8s linear infinite;
+            animation: spin-polaroid 12s ease-in-out infinite;
+            transform-style: preserve-3d;
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @media (min-width: 640px) {
+            .polaroid-frame {
+                width: 240px;
+            }
         }
 
-        .profile-inner {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            padding: 5px;
+        @keyframes spin-polaroid {
+            0%, 100% { transform: rotateY(0deg) rotateZ(-5deg); }
+            25% { transform: rotateY(180deg) rotateZ(5deg); }
+            50% { transform: rotateY(360deg) rotateZ(-3deg); }
+            75% { transform: rotateY(540deg) rotateZ(3deg); }
+        }
+
+        @keyframes fade-swap {
+            0%, 47% { opacity: 1; }
+            50% { opacity: 0; }
+            53%, 100% { opacity: 0; }
+        }
+
+        .polaroid-img {
+            animation: fade-swap 12s ease-in-out infinite;
+        }
+
+        .polaroid-img.second {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: calc(100% - 24px);
+            animation: fade-swap 12s ease-in-out infinite;
+            animation-delay: 6s;
+            object-position: center 100%;
+        }
+
+        .polaroid-inner {
             background: white;
+            padding: 12px 12px 40px 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 2px;
+            position: relative;
         }
 
-        .profile-img {
+        .polaroid-img {
             width: 100%;
-            height: 100%;
-            border-radius: 50%;
+            height: auto;
+            aspect-ratio: 1;
             object-fit: cover;
+            display: block;
+            position: relative;
+        }
+
+        .polaroid-caption {
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 18px;
+            color: #333;
+        }
+
+        @media (min-width: 640px) {
+            .polaroid-caption {
+                font-size: 22px;
+            }
         }
 
         .heartbeat {
@@ -102,6 +150,142 @@
         .start-btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(185, 28, 28, 0.4);
+        }
+
+        /* Quiz Screen Styles */
+        #quiz-screen {
+            display: none;
+            min-height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+        }
+
+        @media (min-width: 640px) {
+            .quiz-card {
+                padding: 40px;
+            }
+        }
+
+        .answer-btn {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            font-size: 14px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        @media (min-width: 640px) {
+            .answer-btn {
+                font-size: 16px;
+            }
+        }
+
+        .answer-btn:hover {
+            transform: translateX(5px);
+            border-color: #B91C1C;
+            background-color: #FEF2F2;
+        }
+
+        .answer-btn:active {
+            transform: scale(0.98);
+        }
+
+        .answer-btn.correct {
+            background-color: #D1FAE5;
+            border-color: #047857;
+        }
+
+        .answer-btn.wrong {
+            background-color: #FEE2E2;
+            border-color: #B91C1C;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .quiz-progress {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 20px;
+        }
+
+        .wrong-answer-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            z-index: 10000;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        @media (min-width: 640px) {
+            .wrong-answer-popup {
+                padding: 40px;
+            }
+        }
+
+        .wrong-answer-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .wrong-answer-popup h3 {
+            font-size: 28px;
+        }
+
+        @media (min-width: 640px) {
+            .wrong-answer-popup h3 {
+                font-size: 36px;
+            }
+        }
+
+        .wrong-answer-popup p {
+            font-size: 16px;
+        }
+
+        @media (min-width: 640px) {
+            .wrong-answer-popup p {
+                font-size: 18px;
+            }
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            display: none;
+        }
+
+        .popup-overlay.show {
+            display: block;
         }
 
         /* Scratch Game Styles */
@@ -173,11 +357,12 @@
             z-index: 1000;
             pointer-events: none;
             animation: chocolateFall linear infinite;
+            top: -100px;
         }
 
         @keyframes chocolateFall {
             to {
-                transform: translateY(100vh) rotate(360deg);
+                transform: translateY(calc(100vh + 100px)) rotate(360deg);
             }
         }
 
@@ -206,7 +391,7 @@
         .gift-card {
             background: white;
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             max-width: 600px;
             width: 100%;
@@ -214,8 +399,45 @@
             z-index: 10;
         }
 
+        @media (min-width: 640px) {
+            .gift-card {
+                padding: 40px;
+            }
+        }
+
         .hidden {
             display: none !important;
+        }
+
+        /* Question transition animations */
+        .question-fade-out {
+            animation: fadeOut 0.5s ease-out forwards;
+        }
+
+        .question-fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -225,42 +447,70 @@
 
     <!-- Welcome Screen -->
     <div id="welcome-screen">
-        <div class="profile-frame">
-            <div class="profile-inner">
-                <img src="patti_new.jpg" alt="My Love" class="profile-img">
+        <div class="polaroid-frame">
+            <div class="polaroid-inner">
+                <img src="image-1.jpg" alt="Christmas Photo 1" class="polaroid-img">
+                <img src="image-2.jpg" alt="Christmas Photo 2" class="polaroid-img second">
+                <div class="polaroid-caption">🎄</div>
             </div>
         </div>
 
-        <h1 class="dancing-font text-5xl md:text-6xl text-red-700 mb-4 text-center">
-            Merry Christmas, My Love!
+        <h1 class="dancing-font text-4xl sm:text-5xl md:text-6xl text-red-700 mb-6 text-center px-4">
+            Wesołych Świąt, Kochanie!
         </h1>
 
-        <div class="text-center mb-8 max-w-md">
-            <p class="text-gray-700 text-lg mb-4">
-                This Christmas, I have something special for you...
+        <div class="text-center mb-8 max-w-lg px-6">
+            <p class="text-gray-700 text-base sm:text-lg mb-4 leading-relaxed">
+                I told you a while ago that I don't really have anything for you for Christmas, and that's still true.
             </p>
-            <p class="text-gray-600 text-base">
-                But you'll have to unwrap it first! 🎁
+            <p class="text-gray-700 text-base sm:text-lg mb-4 leading-relaxed">
+                I don't have anything <span class="italic font-semibold">physical</span>... But maybe something else?
             </p>
         </div>
 
-        <button onclick="startGame()" class="start-btn bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full text-xl heartbeat">
-            Unwrap Your Gift 🎁
+        <button onclick="startQuiz()" class="start-btn bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full text-lg sm:text-xl heartbeat">
+            Let's find out! 🎁
         </button>
+    </div>
 
-        <div class="mt-8 text-center">
-            <p class="text-sm text-gray-500 italic">Made with ❤️ for the most amazing woman</p>
+    <!-- Quiz Screen -->
+    <div id="quiz-screen">
+        <div class="quiz-card">
+            <h2 class="dancing-font text-3xl sm:text-4xl text-red-700 mb-2 text-center">
+                D&P Trivia 🎯
+            </h2>
+            <p class="text-center text-gray-600 mb-6 text-sm sm:text-base">
+                Answer correctly to unlock your gift!
+            </p>
+
+            <div class="quiz-progress text-center mb-6 text-sm">
+                Question <span id="current-question">1</span> of <span id="total-questions">2</span>
+            </div>
+
+            <div id="question-container">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
         </div>
+    </div>
+
+    <!-- Wrong Answer Popup -->
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="wrong-answer-popup" id="wrong-popup">
+        <h3 class="dancing-font text-3xl text-red-700 mb-4">No Gift For You! 😭</h3>
+        <p class="text-gray-700 text-lg mb-6" id="wrong-message"></p>
+        <button onclick="closePopup()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full">
+            Lemme try again! 🙏
+        </button>
     </div>
 
     <!-- Scratch Screen -->
     <div id="scratch-screen">
-        <h2 class="dancing-font text-4xl text-red-700 mb-6 text-center">
+        <h2 class="dancing-font text-3xl sm:text-4xl text-red-700 mb-4 sm:mb-6 text-center px-4">
             Scratch to Reveal Your Gift!
         </h2>
 
-        <div class="mb-4 text-center scratch-hint">
-            <p class="text-gray-600">👆 Scratch with your finger or mouse</p>
+        <div class="mb-4 text-center scratch-hint px-4">
+            <p class="text-gray-600 text-sm sm:text-base">👆 Scratch with your finger or mouse</p>
         </div>
 
         <canvas id="scratch-canvas" width="600" height="800"></canvas>
@@ -277,28 +527,12 @@
 
     <!-- Prize Reveal Screen -->
     <div id="prize-screen">
-        <!-- Stage 1: Opening Message -->
-        <div id="stage-1" class="gift-card fade-in text-center">
-            <h2 class="dancing-font text-4xl md:text-5xl text-red-700 mb-6">
-                My Dearest Love ❤️
-            </h2>
-            <p class="text-gray-700 text-lg mb-4 leading-relaxed">
-                Every moment with you is sweeter than the finest chocolate.
-            </p>
-            <p class="text-gray-700 text-lg mb-4 leading-relaxed">
-                This Christmas, I want to create another beautiful memory together...
-            </p>
-            <p class="text-gray-600 text-base italic">
-                Something delicious, creative, and absolutely perfect for us.
-            </p>
-        </div>
-
         <!-- Stage 2: Teaser -->
         <div id="stage-2" class="hidden gift-card scale-in text-center">
-            <h3 class="dancing-font text-3xl text-green-700 mb-4">
+            <h3 class="dancing-font text-2xl sm:text-3xl text-green-700 mb-4">
                 Get ready for something sweet... 🍫
             </h3>
-            <p class="text-gray-600 text-lg">
+            <p class="text-gray-600 text-base sm:text-lg">
                 (And I'm not just talking about you 😘)
             </p>
         </div>
@@ -308,36 +542,41 @@
 
         <!-- Stage 3: The Big Reveal -->
         <div id="stage-3" class="hidden gift-card scale-in text-center">
-            <h2 class="dancing-font text-5xl text-red-700 mb-6">
+            <h2 class="dancing-font text-3xl sm:text-4xl md:text-5xl text-red-700 mb-6">
                 🍫 Bonbon Workshop! 🍫
             </h2>
 
+            <!-- Bonbon Image -->
+            <div class="mb-6 rounded-lg overflow-hidden shadow-lg">
+                <img src="chocolate.webp" alt="Delicious Bonbons" class="w-full h-auto object-cover" style="max-height: 300px;">
+            </div>
+
             <div class="mb-6">
-                <p class="text-gray-700 text-xl mb-4 font-semibold">
+                <p class="text-gray-700 text-lg sm:text-xl mb-4 font-semibold">
                     We're going to make chocolates together!
                 </p>
-                <p class="text-gray-600 text-base mb-4 leading-relaxed">
+                <p class="text-gray-600 text-sm sm:text-base mb-4 leading-relaxed">
                     Join me for a magical bonbon-making workshop where we'll create our own delicious chocolates from scratch.
                 </p>
-                <p class="text-gray-600 text-base mb-4 leading-relaxed">
+                <p class="text-gray-600 text-sm sm:text-base mb-4 leading-relaxed">
                     We'll learn from professionals, get creative with flavors, and most importantly...
                 </p>
-                <p class="text-gray-700 text-lg font-semibold">
+                <p class="text-gray-700 text-base sm:text-lg font-semibold">
                     We'll spend quality time together doing something fun and delicious! 💕
                 </p>
             </div>
 
-            <div class="bg-red-50 rounded-lg p-6 mb-4">
-                <p class="text-red-700 text-sm mb-2">🎄 Your Christmas Gift 🎄</p>
-                <p class="text-gray-700 font-semibold text-lg">Bonbon Making Workshop for Two</p>
-                <p class="text-gray-600 text-sm mt-2">Date: To be planned together ❤️</p>
+            <div class="bg-red-50 rounded-lg p-4 sm:p-6 mb-4">
+                <p class="text-red-700 text-xs sm:text-sm mb-2">🎄 Your Christmas Gift 🎄</p>
+                <p class="text-gray-700 font-semibold text-base sm:text-lg">Bonbon Making Workshop for Two</p>
+                <p class="text-gray-600 text-xs sm:text-sm mt-2">Date: To be planned together ❤️</p>
             </div>
 
             <div class="text-center mt-6">
-                <p class="text-gray-600 italic text-sm">
+                <p class="text-gray-600 italic text-xs sm:text-sm">
                     I can't wait to see what sweet creations we'll make together!
                 </p>
-                <p class="dancing-font text-2xl text-red-600 mt-4">
+                <p class="dancing-font text-xl sm:text-2xl text-red-600 mt-4">
                     I love you! ❤️
                 </p>
             </div>
@@ -345,6 +584,34 @@
     </div>
 
     <script>
+        // Quiz data
+        const quizQuestions = [
+            {
+                question: "What word was so difficult for me to pronounce our first Christmas together in Poland?",
+                answers: [
+                    { text: "A) Kurwa", correct: false, wrongMessage: "Really?! That's literally the FIRST word everyone learns! 😂 No gift for you!" },
+                    { text: "B) Piwo", correct: false, wrongMessage: "Piwo?! I can say that perfectly! It means BEER! 🍺 Try again, no gift!" },
+                    { text: "C) Wszystkich", correct: true },
+                    { text: "D) Dziewięćsetdziewięćdziesięciodziewięcionarodowościowego", correct: false, wrongMessage: "Nice try, but NOBODY can pronounce that! 😅 No gift for you!" }
+                ],
+                wrongMessage: "SERIOUSLY?! I practiced that word for HOURS and you forgot?! No gift! 😭"
+            },
+            {
+                question: "What probably makes you the happiest when you're sad?",
+                answers: [
+                    { text: "A) Chocolate", correct: true },
+                    { text: "B) Chocolate", correct: true },
+                    { text: "C) Chocolate", correct: true },
+                    { text: "D) It's still chocolate", correct: true }
+                ],
+                wrongMessage: "Just kidding! They're all right! 🍫",
+                allCorrect: true,
+                trickReveal: true
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
         // Create snowflakes
         function createSnowflakes() {
             const container = document.getElementById('snowflakes-container');
@@ -362,7 +629,121 @@
             }
         }
 
-        // Start the game
+        // Start quiz
+        function startQuiz() {
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'flex';
+            document.getElementById('total-questions').textContent = quizQuestions.length;
+            showQuestion(true); // Animate first question on entry
+        }
+
+        // Display current question
+        function showQuestion(animate = true) {
+            const question = quizQuestions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+
+            container.innerHTML = `
+                <div class="${animate ? 'question-fade-in' : ''}">
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-6 leading-relaxed">${question.question}</h3>
+                    <div class="space-y-3">
+                        ${question.answers.map((answer, index) => `
+                            <button onclick="checkAnswer(${index})" class="answer-btn w-full text-left p-3 sm:p-4 rounded-lg bg-white hover:bg-red-50 transition-all">
+                                ${answer.text}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Check answer
+        function checkAnswer(answerIndex) {
+            const question = quizQuestions[currentQuestionIndex];
+            const answerBtns = document.querySelectorAll('.answer-btn');
+            const selectedBtn = answerBtns[answerIndex];
+
+            // Disable all buttons
+            answerBtns.forEach(btn => btn.disabled = true);
+
+            if (question.trickReveal) {
+                // Show wrong first, then reveal they're all correct
+                selectedBtn.classList.add('wrong');
+                document.getElementById('wrong-message').textContent = question.wrongMessage;
+
+                // Hide the retry button for trick questions
+                const retryBtn = document.querySelector('#wrong-popup button');
+                if (retryBtn) retryBtn.style.display = 'none';
+
+                document.getElementById('popup-overlay').classList.add('show');
+                document.getElementById('wrong-popup').classList.add('show');
+
+                // After 3 seconds, close popup and show success
+                setTimeout(() => {
+                    document.getElementById('popup-overlay').classList.remove('show');
+                    document.getElementById('wrong-popup').classList.remove('show');
+
+                    setTimeout(() => {
+                        // Show retry button again for next questions (after popup is fully hidden)
+                        if (retryBtn) retryBtn.style.display = '';
+
+                        selectedBtn.classList.remove('wrong');
+                        selectedBtn.classList.add('correct');
+                        setTimeout(nextQuestion, 2000); // Was 1500 - now 2 seconds
+                    }, 500);
+                }, 3000); // Was 2000 - now 3 seconds for trick reveal
+            } else if (question.answers[answerIndex].correct) {
+                // Correct answer
+                selectedBtn.classList.add('correct');
+                setTimeout(nextQuestion, 2000); // Was 1500 - now 2 seconds
+            } else {
+                // Wrong answer - use specific message if available, otherwise use default
+                selectedBtn.classList.add('wrong');
+                const wrongMsg = question.answers[answerIndex].wrongMessage || question.wrongMessage;
+                document.getElementById('wrong-message').textContent = wrongMsg;
+                document.getElementById('popup-overlay').classList.add('show');
+                document.getElementById('wrong-popup').classList.add('show');
+            }
+        }
+
+        // Close popup and retry
+        function closePopup() {
+            document.getElementById('popup-overlay').classList.remove('show');
+            document.getElementById('wrong-popup').classList.remove('show');
+
+            // Re-enable buttons and remove wrong class
+            const answerBtns = document.querySelectorAll('.answer-btn');
+            answerBtns.forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('wrong');
+            });
+        }
+
+        // Next question or finish
+        function nextQuestion() {
+            const container = document.getElementById('question-container');
+            const questionDiv = container.querySelector('div');
+
+            // Add fade-out animation
+            if (questionDiv) {
+                questionDiv.classList.add('question-fade-out');
+            }
+
+            // Wait for fade-out to complete before showing next question
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < quizQuestions.length) {
+                    showQuestion(true);
+                } else {
+                    // Quiz completed! Start the scratch game
+                    document.getElementById('quiz-screen').style.display = 'none';
+                    document.getElementById('scratch-screen').style.display = 'flex';
+                    initScratchCard();
+                }
+            }, 600); // Wait for fade-out animation (0.5s) plus small buffer
+        }
+
+        // Start the game (legacy function for scratch card)
         function startGame() {
             document.getElementById('welcome-screen').style.display = 'none';
             document.getElementById('scratch-screen').style.display = 'flex';
@@ -376,6 +757,11 @@
             canvas = document.getElementById('scratch-canvas');
             ctx = canvas.getContext('2d');
 
+            // Reset transition states
+            middleFingerRevealed = false;
+            giftTransitioned = false;
+            window.revealStarted = false;
+
             // Adjust canvas for mobile
             const maxWidth = Math.min(600, window.innerWidth - 40);
             const maxHeight = Math.min(800, window.innerHeight - 300);
@@ -385,8 +771,8 @@
             // Draw wrapping paper
             drawWrappingPaper();
 
-            // Draw hidden gift underneath
-            drawGiftImage();
+            // Draw hidden gift underneath - starts with middle finger joke!
+            drawGiftImage(true);
 
             // Mouse events
             canvas.addEventListener('mousedown', startScratching);
@@ -440,39 +826,59 @@
             ctx.globalCompositeOperation = 'destination-out';
         }
 
-        function drawGiftImage() {
+        function drawGiftImage(isMiddleFinger = true) {
             // This will be visible underneath the wrapping paper
             const tempCanvas = document.createElement('canvas');
             tempCanvas.width = canvas.width;
             tempCanvas.height = canvas.height;
             const tempCtx = tempCanvas.getContext('2d');
 
-            // Draw gift box
-            const boxWidth = canvas.width * 0.6;
-            const boxHeight = canvas.height * 0.5;
-            const boxX = (canvas.width - boxWidth) / 2;
-            const boxY = canvas.height * 0.3;
+            if (isMiddleFinger) {
+                // Draw middle finger emoji - the joke reveal!
+                tempCtx.fillStyle = '#FDE2E4'; // Light pink background
+                tempCtx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Box body
-            tempCtx.fillStyle = '#B91C1C';
-            tempCtx.fillRect(boxX, boxY, boxWidth, boxHeight);
+                // Big middle finger emoji
+                tempCtx.font = `bold ${canvas.width * 0.4}px Arial`;
+                tempCtx.textAlign = 'center';
+                tempCtx.textBaseline = 'middle';
+                tempCtx.fillText('🖕', canvas.width / 2, canvas.height / 2 - 40);
 
-            // Box ribbon
-            tempCtx.fillStyle = '#FFC107';
-            const ribbonWidth = boxWidth * 0.15;
-            tempCtx.fillRect(boxX + boxWidth / 2 - ribbonWidth / 2, boxY, ribbonWidth, boxHeight);
-            tempCtx.fillRect(boxX, boxY + boxHeight / 2 - ribbonWidth / 2, boxWidth, ribbonWidth);
+                // Cheeky text
+                tempCtx.fillStyle = '#B91C1C';
+                tempCtx.font = `bold ${canvas.width * 0.06}px Poppins`;
+                tempCtx.fillText('Just kidding! 😂', canvas.width / 2, canvas.height / 2 + canvas.height * 0.25);
+            } else {
+                // Draw green gift box - the real gift
+                tempCtx.fillStyle = '#D1FAE5'; // Light green background
+                tempCtx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Bow
-            tempCtx.beginPath();
-            tempCtx.arc(boxX + boxWidth / 2, boxY + boxHeight / 2, boxWidth * 0.15, 0, Math.PI * 2);
-            tempCtx.fill();
+                const boxWidth = canvas.width * 0.6;
+                const boxHeight = canvas.height * 0.5;
+                const boxX = (canvas.width - boxWidth) / 2;
+                const boxY = canvas.height * 0.3;
 
-            // Text
-            tempCtx.fillStyle = '#047857';
-            tempCtx.font = 'bold 32px Dancing Script';
-            tempCtx.textAlign = 'center';
-            tempCtx.fillText('For You ❤️', canvas.width / 2, boxY + boxHeight + 50);
+                // Box body - green
+                tempCtx.fillStyle = '#047857';
+                tempCtx.fillRect(boxX, boxY, boxWidth, boxHeight);
+
+                // Box ribbon - gold
+                tempCtx.fillStyle = '#FFC107';
+                const ribbonWidth = boxWidth * 0.15;
+                tempCtx.fillRect(boxX + boxWidth / 2 - ribbonWidth / 2, boxY, ribbonWidth, boxHeight);
+                tempCtx.fillRect(boxX, boxY + boxHeight / 2 - ribbonWidth / 2, boxWidth, ribbonWidth);
+
+                // Bow
+                tempCtx.beginPath();
+                tempCtx.arc(boxX + boxWidth / 2, boxY + boxHeight / 2, boxWidth * 0.15, 0, Math.PI * 2);
+                tempCtx.fill();
+
+                // Text
+                tempCtx.fillStyle = '#047857';
+                tempCtx.font = 'bold 32px Dancing Script';
+                tempCtx.textAlign = 'center';
+                tempCtx.fillText('Your Real Gift! 🎁', canvas.width / 2, boxY + boxHeight + 50);
+            }
 
             // Place under main canvas
             canvas.style.backgroundImage = `url(${tempCanvas.toDataURL()})`;
@@ -526,6 +932,9 @@
         }
 
         let lastCheck = 0;
+        let middleFingerRevealed = false;
+        let giftTransitioned = false;
+
         function checkProgress() {
             const now = Date.now();
             if (now - lastCheck < 200) return; // Throttle checks
@@ -543,42 +952,55 @@
             document.getElementById('progress-bar').style.width = scratchedPercent + '%';
             document.getElementById('progress-text').textContent = scratchedPercent + '%';
 
-            if (scratchedPercent >= 60 && !window.revealStarted) {
-                window.revealStarted = true;
-                setTimeout(revealGift, 500);
+            // At 50% middle finger is fully visible - transition to green gift
+            if (scratchedPercent >= 50 && !giftTransitioned) {
+                giftTransitioned = true;
+                transitionToGreenGift();
             }
+        }
+
+        function transitionToGreenGift() {
+            // Flash effect and transition to green gift
+            canvas.style.transition = 'opacity 0.5s';
+            canvas.style.opacity = '0.3';
+
+            setTimeout(() => {
+                drawGiftImage(false); // Switch to green gift
+                canvas.style.opacity = '1';
+
+                // Wait 2 seconds then go to prize reveal
+                setTimeout(() => {
+                    revealGift();
+                }, 2000);
+            }, 500);
         }
 
         function revealGift() {
             document.getElementById('scratch-screen').style.display = 'none';
             document.getElementById('prize-screen').style.display = 'flex';
 
-            // Show stages with delays
+            // Skip stage 1, go directly to stage 2
             setTimeout(() => {
-                document.getElementById('stage-1').classList.remove('hidden');
-            }, 500);
-
-            setTimeout(() => {
-                document.getElementById('stage-1').classList.add('hidden');
                 document.getElementById('stage-2').classList.remove('hidden');
-            }, 5000);
+            }, 800);
 
             setTimeout(() => {
                 startChocolateRain();
-            }, 7000);
+            }, 2800); // Start chocolate rain 2 seconds after stage 2 appears
 
             setTimeout(() => {
                 document.getElementById('stage-2').classList.add('hidden');
                 document.getElementById('stage-3').classList.remove('hidden');
                 stopChocolateRain();
                 createSparkles();
-            }, 10000);
+            }, 8800); // Show final reveal after 8 seconds total
         }
 
         // Chocolate rain effect
         let chocolateInterval;
         function startChocolateRain() {
-            const chocolates = ['🍫', '🍬', '🍭', '🍰', '🧁', '🍩'];
+            // Only chocolate and bonbon related emojis
+            const chocolates = ['🍫', '🍬', '🧈', '🍪', '🎂', '☕', '🥥'];
             chocolateInterval = setInterval(() => {
                 const chocolate = document.createElement('div');
                 chocolate.className = 'chocolate';
