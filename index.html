@@ -353,7 +353,7 @@
             background-color: #FEF2F2;
         }
 
-        .answer-btn:active {
+        .answer-btn:active:not(.dodging) {
             transform: scale(0.98);
         }
 
@@ -372,6 +372,10 @@
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-10px); }
             75% { transform: translateX(10px); }
+        }
+
+        .answer-btn.dodging {
+            transition: transform 0.3s ease;
         }
 
         .quiz-progress {
@@ -804,6 +808,16 @@
                 wrongMessage: "SERIOUSLY?! I practiced that word for HOURS and you forgot?! No gift! 😭"
             },
             {
+                question: "Where did we eat on our first dinner date in Łódź?",
+                answers: [
+                    { text: "A) Farina Bianco", correct: false, wrongMessage: "Nope! That's not where we had our first date! 😅 Try again!" },
+                    { text: "B) Tabu", correct: true, dodgy: true },
+                    { text: "C) McDonalds", correct: false, wrongMessage: "MCDONALD'S?! Really?! I have better taste than that! 😂" },
+                    { text: "D) Yalla yalla Kebab", correct: false, wrongMessage: "Close, but no kebab! 🥙 Try again!" }
+                ],
+                wrongMessage: "Wrong! Try to remember our special first date! 💕"
+            },
+            {
                 question: "What probably makes you the happiest when you're sad?",
                 answers: [
                     { text: "A) Chocolate", correct: true },
@@ -897,7 +911,9 @@
                     <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-6 leading-relaxed">${question.question}</h3>
                     <div class="space-y-3">
                         ${question.answers.map((answer, index) => `
-                            <button onclick="checkAnswer(${index})" class="answer-btn w-full text-left p-3 sm:p-4 rounded-lg bg-white hover:bg-red-50 transition-all">
+                            <button onclick="handleAnswerClick(${index})"
+                                    data-answer-index="${index}"
+                                    class="answer-btn w-full text-left p-3 sm:p-4 rounded-lg bg-white hover:bg-red-50 transition-all ${answer.dodgy ? 'dodgy-btn' : ''}">
                                 ${answer.text}
                             </button>
                         `).join('')}
@@ -906,13 +922,52 @@
             `;
         }
 
+        let dodgeCount = 0;
+        const MAX_DODGES = 2;
+
+        function handleAnswerClick(answerIndex) {
+            const question = quizQuestions[currentQuestionIndex];
+            const answer = question.answers[answerIndex];
+
+            // If it's the dodgy button and hasn't dodged enough times yet
+            if (answer.dodgy && dodgeCount < MAX_DODGES) {
+                dodgeCount++;
+                const btn = document.querySelector(`[data-answer-index="${answerIndex}"]`);
+
+                // Random movement - up, down, left, or right
+                const directions = [
+                    'translateY(-80px)',
+                    'translateY(80px)',
+                    'translateX(-100px)',
+                    'translateX(100px)'
+                ];
+                const randomDirection = directions[Math.floor(Math.random() * directions.length)];
+
+                btn.classList.add('dodging');
+                btn.style.transform = randomDirection;
+
+                // Reset position after a moment
+                setTimeout(() => {
+                    btn.style.transform = 'translateX(0) translateY(0)';
+                }, 600);
+
+                return; // Don't check the answer yet
+            }
+
+            // Reset dodge count for next question
+            dodgeCount = 0;
+
+            // Proceed with normal answer checking
+            checkAnswer(answerIndex);
+        }
+
         // Check answer
         function checkAnswer(answerIndex) {
             const question = quizQuestions[currentQuestionIndex];
             const answerBtns = document.querySelectorAll('.answer-btn');
             const selectedBtn = answerBtns[answerIndex];
 
-            // Disable all buttons
+            // Disable all buttons (but not during dodging)
             answerBtns.forEach(btn => btn.disabled = true);
 
             if (question.trickReveal) {
@@ -1219,31 +1274,26 @@
             document.getElementById('progress-bar').style.width = scratchedPercent + '%';
             document.getElementById('progress-text').textContent = scratchedPercent + '%';
 
-            // At 50% middle finger is fully visible - transition to green gift
+            // At 50% middle finger is fully visible - transition to prize reveal
             if (scratchedPercent >= 50 && !giftTransitioned) {
                 giftTransitioned = true;
-                transitionToGreenGift();
+                transitionToPrize();
             }
         }
 
-        function transitionToGreenGift() {
-            // Add 3D flip animation
-            canvas.classList.add('flip-3d');
-
-            // Flash effect and transition to green gift
-            canvas.style.transition = 'opacity 0.5s';
-            canvas.style.opacity = '0.3';
-
+        function transitionToPrize() {
+            // Wait a moment to let them see the middle finger joke
             setTimeout(() => {
-                drawGiftImage(false); // Switch to green gift
-                canvas.style.opacity = '1';
+                // Fade out scratch screen
+                const scratchScreen = document.getElementById('scratch-screen');
+                scratchScreen.style.transition = 'opacity 0.8s';
+                scratchScreen.style.opacity = '0';
 
-                // Wait 2 seconds then go to prize reveal
+                // Then reveal the actual gift
                 setTimeout(() => {
-                    canvas.classList.remove('flip-3d');
                     revealGift();
-                }, 2000);
-            }, 500);
+                }, 800);
+            }, 1500);
         }
 
         function revealGift() {
