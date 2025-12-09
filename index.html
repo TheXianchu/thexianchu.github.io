@@ -159,8 +159,8 @@
         /* Polaroid Photo Frame */
         .polaroid-frame {
             position: relative;
-            width: 180px;
-            margin-bottom: 30px;
+            width: 160px;
+            margin-bottom: 20px;
             animation: spin-polaroid 12s ease-in-out infinite;
             transform-style: preserve-3d;
         }
@@ -168,6 +168,7 @@
         @media (min-width: 640px) {
             .polaroid-frame {
                 width: 240px;
+                margin-bottom: 30px;
             }
         }
 
@@ -319,7 +320,7 @@
         .quiz-card {
             background: white;
             border-radius: 20px;
-            padding: 30px 20px;
+            padding: 20px 16px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             max-width: 600px;
             width: 100%;
@@ -679,20 +680,20 @@
             </div>
         </div>
 
-        <h1 class="dancing-font text-4xl sm:text-5xl md:text-6xl text-red-700 mb-6 text-center px-4" style="text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.5);">
+        <h1 class="dancing-font text-3xl sm:text-5xl md:text-6xl text-red-700 mb-4 text-center px-4" style="text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.5);">
             Wesołych Świąt, Kochanie!
         </h1>
 
-        <div class="text-center mb-8 max-w-lg px-6">
-            <p class="text-gray-700 text-base sm:text-lg mb-4 leading-relaxed">
+        <div class="text-center mb-6 max-w-lg px-6">
+            <p class="text-gray-700 text-sm sm:text-lg mb-3 leading-relaxed">
                 I told you a while ago that I don't really have anything for you for Christmas, and that's still true.
             </p>
-            <p class="text-gray-700 text-base sm:text-lg mb-4 leading-relaxed">
+            <p class="text-gray-700 text-sm sm:text-lg mb-3 leading-relaxed">
                 I don't have anything <span class="italic font-semibold">physical</span>... But maybe something else?
             </p>
         </div>
 
-        <button onclick="startQuiz()" class="start-btn bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full text-lg sm:text-xl heartbeat">
+        <button onclick="startQuiz()" class="start-btn bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full text-base sm:text-xl heartbeat">
             Let's find out! 🎁
         </button>
     </div>
@@ -700,15 +701,15 @@
     <!-- Quiz Screen -->
     <div id="quiz-screen">
         <div class="quiz-card">
-            <h2 class="dancing-font text-3xl sm:text-4xl text-red-700 mb-2 text-center">
+            <h2 class="dancing-font text-2xl sm:text-4xl text-red-700 mb-2 text-center">
                 D&P Trivia 🎯
             </h2>
-            <p class="text-center text-gray-600 mb-6 text-sm sm:text-base">
+            <p class="text-center text-gray-600 mb-4 text-xs sm:text-base">
                 Answer correctly to unlock your gift!
             </p>
 
-            <div class="quiz-progress text-center mb-6 text-sm">
-                Question <span id="current-question">1</span> of <span id="total-questions">2</span>
+            <div class="quiz-progress text-center mb-4 text-xs sm:text-sm">
+                Question <span id="current-question">1</span> of <span id="total-questions">3</span>
             </div>
 
             <div id="question-container">
@@ -908,12 +909,12 @@
 
             container.innerHTML = `
                 <div class="${animate ? 'question-fade-in' : ''}">
-                    <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-6 leading-relaxed">${question.question}</h3>
-                    <div class="space-y-3">
+                    <h3 class="text-base sm:text-xl font-semibold text-gray-800 mb-4 leading-relaxed">${question.question}</h3>
+                    <div class="space-y-2 sm:space-y-3">
                         ${question.answers.map((answer, index) => `
                             <button onclick="handleAnswerClick(${index})"
                                     data-answer-index="${index}"
-                                    class="answer-btn w-full text-left p-3 sm:p-4 rounded-lg bg-white hover:bg-red-50 transition-all ${answer.dodgy ? 'dodgy-btn' : ''}">
+                                    class="answer-btn w-full text-left p-2.5 sm:p-4 rounded-lg bg-white hover:bg-red-50 transition-all ${answer.dodgy ? 'dodgy-btn' : ''}">
                                 ${answer.text}
                             </button>
                         `).join('')}
