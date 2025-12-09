@@ -108,7 +108,7 @@
         .snowflake {
             position: fixed;
             top: -10px;
-            z-index: 9999;
+            z-index: 1;
             user-select: none;
             pointer-events: none;
             color: white;
@@ -135,7 +135,7 @@
         }
 
         #welcome-screen.fade-out {
-            animation: zoomOut 0.8s ease-in forwards;
+            animation: simpleFadeOut 0.5s ease-out forwards;
         }
 
         @keyframes fadeInScale {
@@ -149,10 +149,9 @@
             }
         }
 
-        @keyframes zoomOut {
+        @keyframes simpleFadeOut {
             to {
                 opacity: 0;
-                transform: scale(1.2);
             }
         }
 
@@ -292,28 +291,19 @@
         }
 
         #quiz-screen.show {
-            animation: slideInFromRight 0.8s ease-out;
+            animation: simpleFadeIn 0.5s ease-out;
         }
 
         #quiz-screen.fade-out {
-            animation: slideOutToLeft 0.8s ease-in forwards;
+            animation: simpleFadeOut 0.5s ease-out forwards;
         }
 
-        @keyframes slideInFromRight {
+        @keyframes simpleFadeIn {
             from {
                 opacity: 0;
-                transform: translateX(100%);
             }
             to {
                 opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideOutToLeft {
-            to {
-                opacity: 0;
-                transform: translateX(-100%);
             }
         }
 
@@ -325,6 +315,7 @@
             max-width: 600px;
             width: 100%;
             position: relative;
+            z-index: 10;
         }
 
         @media (min-width: 640px) {
@@ -348,7 +339,7 @@
             }
         }
 
-        .answer-btn:hover {
+        .answer-btn:hover:not(.dodging) {
             transform: translateX(5px);
             border-color: #B91C1C;
             background-color: #FEF2F2;
@@ -356,6 +347,11 @@
 
         .answer-btn:active:not(.dodging) {
             transform: scale(0.98);
+        }
+
+        .answer-btn.dodging:hover {
+            border-color: #e5e7eb;
+            background-color: white;
         }
 
         .answer-btn.correct {
@@ -624,32 +620,28 @@
 
         /* Question transition animations */
         .question-fade-out {
-            animation: slideOutLeft 0.5s ease-in forwards;
+            animation: fadeOutSimple 0.4s ease-out forwards;
         }
 
         .question-fade-in {
-            animation: slideInRight 0.6s ease-out forwards;
+            animation: fadeInSimple 0.5s ease-in forwards;
         }
 
-        @keyframes slideOutLeft {
+        @keyframes fadeOutSimple {
             from {
                 opacity: 1;
-                transform: translateX(0) scale(1);
             }
             to {
                 opacity: 0;
-                transform: translateX(-100%) scale(0.8);
             }
         }
 
-        @keyframes slideInRight {
+        @keyframes fadeInSimple {
             from {
                 opacity: 0;
-                transform: translateX(100%) scale(0.8);
             }
             to {
                 opacity: 1;
-                transform: translateX(0) scale(1);
             }
         }
     </style>
@@ -898,7 +890,7 @@
                 quizScreen.classList.add('show');
                 document.getElementById('total-questions').textContent = quizQuestions.length;
                 showQuestion(true); // Animate first question on entry
-            }, 800);
+            }, 500);
         }
 
         // Display current question
@@ -935,21 +927,26 @@
                 dodgeCount++;
                 const btn = document.querySelector(`[data-answer-index="${answerIndex}"]`);
 
-                // Random movement - up, down, left, or right
+                // Prevent any styling changes
+                btn.classList.add('dodging');
+
+                // Random diagonal movement
                 const directions = [
-                    'translateY(-80px)',
-                    'translateY(80px)',
-                    'translateX(-100px)',
-                    'translateX(100px)'
+                    { x: -120, y: -60 },  // up-left
+                    { x: 120, y: -60 },   // up-right
+                    { x: -120, y: 60 },   // down-left
+                    { x: 120, y: 60 },    // down-right
+                    { x: 0, y: -80 },     // straight up
+                    { x: 0, y: 80 }       // straight down
                 ];
                 const randomDirection = directions[Math.floor(Math.random() * directions.length)];
 
-                btn.classList.add('dodging');
-                btn.style.transform = randomDirection;
+                btn.style.transform = `translateX(${randomDirection.x}px) translateY(${randomDirection.y}px)`;
 
                 // Reset position after a moment
                 setTimeout(() => {
                     btn.style.transform = 'translateX(0) translateY(0)';
+                    btn.classList.remove('dodging');
                 }, 600);
 
                 return; // Don't check the answer yet
@@ -1063,7 +1060,7 @@
                         initScratchCard();
                     }, 1800);
                 }
-            }, 550); // Wait for fade-out animation to complete (0.5s)
+            }, 450); // Wait for fade-out animation to complete (0.4s)
         }
 
         // Start the game (legacy function for scratch card)
