@@ -10,6 +10,7 @@
     <title>Merry Christmas, My Love!</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <style>
         * {
             margin: 0;
@@ -481,21 +482,6 @@
             }
         }
 
-        /* Confetti */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            z-index: 10000;
-            pointer-events: none;
-        }
-
-        @keyframes confettiFall {
-            to {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
 
         .gift-card {
             background: white;
@@ -677,13 +663,7 @@
                     We're going to make chocolates together!
                 </p>
                 <p class="text-gray-600 text-sm sm:text-base mb-4 leading-relaxed">
-                    Join me for a magical bonbon-making workshop where we'll create our own delicious chocolates from scratch.
-                </p>
-                <p class="text-gray-600 text-sm sm:text-base mb-4 leading-relaxed">
                     We'll learn from professionals, get creative with flavors, and most importantly...
-                </p>
-                <p class="text-gray-700 text-base sm:text-lg font-semibold">
-                    We'll spend quality time together doing something fun and delicious! 💕
                 </p>
             </div>
 
@@ -691,15 +671,6 @@
                 <p class="text-red-700 text-xs sm:text-sm mb-2">🎄 Your Christmas Gift 🎄</p>
                 <p class="text-gray-700 font-semibold text-base sm:text-lg">Bonbon Making Workshop for Two</p>
                 <p class="text-gray-600 text-xs sm:text-sm mt-2">Date: To be planned together ❤️</p>
-            </div>
-
-            <div class="text-center mt-6">
-                <p class="text-gray-600 italic text-xs sm:text-sm">
-                    I can't wait to see what sweet creations we'll make together!
-                </p>
-                <p class="dancing-font text-xl sm:text-2xl text-red-600 mt-4">
-                    I love you! ❤️
-                </p>
             </div>
         </div>
     </div>
@@ -732,9 +703,13 @@
         ];
 
         let currentQuestionIndex = 0;
+        let jsConfetti = null;
 
         // Loading screen
         window.addEventListener('load', () => {
+            // Initialize JSConfetti
+            jsConfetti = new JSConfetti();
+
             setTimeout(() => {
                 document.getElementById('loading-screen').classList.add('hidden');
             }, 2500);
@@ -758,24 +733,25 @@
             }
         }
 
-        // Confetti explosion
+        // Confetti explosion from sides
         function createConfetti() {
-            const colors = ['#B91C1C', '#047857', '#FFC107', '#EC4899', '#8B5CF6', '#10B981'];
-            for (let i = 0; i < 100; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = Math.random() * 100 + '%';
-                    confetti.style.top = '50%';
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
-                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
-                    confetti.style.animation = `confettiFall ${Math.random() * 2 + 2}s linear forwards`;
-                    document.body.appendChild(confetti);
+            if (!jsConfetti) return;
 
-                    setTimeout(() => confetti.remove(), 4000);
-                }, i * 10);
-            }
+            // Left side confetti
+            jsConfetti.addConfetti({
+                confettiColors: ['#B91C1C', '#047857', '#FFC107', '#EC4899', '#8B5CF6', '#10B981'],
+                confettiRadius: 6,
+                confettiNumber: 100,
+            });
+
+            // Right side confetti with slight delay
+            setTimeout(() => {
+                jsConfetti.addConfetti({
+                    confettiColors: ['#B91C1C', '#047857', '#FFC107', '#EC4899', '#8B5CF6', '#10B981'],
+                    confettiRadius: 6,
+                    confettiNumber: 100,
+                });
+            }, 150);
         }
 
         // Start quiz
