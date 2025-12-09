@@ -108,7 +108,7 @@
         .snowflake {
             position: fixed;
             top: -10px;
-            z-index: 1;
+            z-index: 0;
             user-select: none;
             pointer-events: none;
             color: white;
@@ -339,13 +339,13 @@
             }
         }
 
-        .answer-btn:hover:not(.dodging) {
+        .answer-btn:hover:not(.dodging):not(:disabled) {
             transform: translateX(5px);
             border-color: #B91C1C;
             background-color: #FEF2F2;
         }
 
-        .answer-btn:active:not(.dodging) {
+        .answer-btn:active:not(.dodging):not(:disabled) {
             transform: scale(0.98);
         }
 
@@ -355,8 +355,8 @@
         }
 
         .answer-btn.correct {
-            background-color: #D1FAE5;
-            border-color: #047857;
+            background-color: #D1FAE5 !important;
+            border-color: #047857 !important;
         }
 
         .answer-btn.wrong {
@@ -927,8 +927,10 @@
                 dodgeCount++;
                 const btn = document.querySelector(`[data-answer-index="${answerIndex}"]`);
 
-                // Prevent any styling changes
+                // Prevent any styling changes - disable button temporarily and remove any existing classes
+                btn.classList.remove('wrong', 'correct');
                 btn.classList.add('dodging');
+                btn.disabled = true;
 
                 // Random diagonal movement
                 const directions = [
@@ -947,6 +949,7 @@
                 setTimeout(() => {
                     btn.style.transform = 'translateX(0) translateY(0)';
                     btn.classList.remove('dodging');
+                    btn.disabled = false;
                 }, 600);
 
                 return; // Don't check the answer yet
