@@ -327,6 +327,7 @@
         .answer-btn {
             transition: all 0.3s ease;
             border: 2px solid #e5e7eb;
+            background-color: white;
             font-size: 14px;
             word-wrap: break-word;
             overflow-wrap: break-word;
@@ -349,9 +350,11 @@
             transform: scale(0.98);
         }
 
-        .answer-btn.dodging:hover {
-            border-color: #e5e7eb;
-            background-color: white;
+        .answer-btn.dodging,
+        .answer-btn.dodging:hover,
+        .answer-btn.dodging:active {
+            border-color: #e5e7eb !important;
+            background-color: white !important;
         }
 
         .answer-btn.correct {
@@ -793,10 +796,10 @@
             {
                 question: "What word was so difficult for me to pronounce our first Christmas together in Poland?",
                 answers: [
-                    { text: "A) Kurwa", correct: false, wrongMessage: "I'm pretty that was the opposite of difficult for anyone that's not Polish" },
+                    { text: "A) Kurwa", correct: false, wrongMessage: "I'm pretty that was the opposite of difficult for anyone that's not Polish." },
                     { text: "B) Piwo", correct: false, wrongMessage: "Don't piss me off now..." },
                     { text: "C) Wszystkich", correct: true },
-                    { text: "D) Dziewięćsetdziewięćdziesięciodziewięcionarodowościowego", correct: false, wrongMessage: "I mean, sure, if I Had to even try it I would probably go disabled" }
+                    { text: "D) Dziewięćsetdziewięćdziesięciodziewięcionarodowościowego", correct: false, wrongMessage: "I mean, sure, if I had to even try it I would probably go disabled." }
                 ],
                 wrongMessage: "No gift for you!"
             },
@@ -906,7 +909,7 @@
                         ${question.answers.map((answer, index) => `
                             <button onclick="handleAnswerClick(${index})"
                                     data-answer-index="${index}"
-                                    class="answer-btn w-full text-left p-2.5 sm:p-4 rounded-lg bg-white hover:bg-red-50 transition-all ${answer.dodgy ? 'dodgy-btn' : ''}">
+                                    class="answer-btn w-full text-left p-2.5 sm:p-4 rounded-lg ${answer.dodgy ? 'dodgy-btn' : ''}">
                                 ${answer.text}
                             </button>
                         `).join('')}
@@ -932,6 +935,10 @@
                 btn.classList.add('dodging');
                 btn.disabled = true;
 
+                // Force white background and gray border during dodge
+                btn.style.backgroundColor = 'white';
+                btn.style.borderColor = '#e5e7eb';
+
                 // Random diagonal movement
                 const directions = [
                     { x: -120, y: -60 },  // up-left
@@ -950,6 +957,9 @@
                     btn.style.transform = 'translateX(0) translateY(0)';
                     btn.classList.remove('dodging');
                     btn.disabled = false;
+                    // Remove inline styles so CSS can take over
+                    btn.style.backgroundColor = '';
+                    btn.style.borderColor = '';
                 }, 600);
 
                 return; // Don't check the answer yet
