@@ -4,370 +4,615 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <title>Our first trip together!!</title>
-    <!-- Include Tailwind CSS -->
+    <title>Merry Christmas, My Love!</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Include Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Additional Custom Styles */
-        .section-card {
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-height: 80vh; /* Adjust according to your needs */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .section-card .section-content {
-            padding: 20px;
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #FDE2E4 0%, #FAD9E0 50%, #FDE2E4 100%);
+            min-height: 100vh;
         }
 
-        /* Adjust portrait image position */
-        .portrait-image {
-            border: 2px solid #d1d5db; /* Grey border */
+        .dancing-font {
+            font-family: 'Dancing Script', cursive;
         }
 
-        /* Sticky header and footer */
-        #question-section, #hidden-stuff-2 {
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            background-color: white; /* Match your background */
-            padding: 20px;
-        }
-
-        #hidden-stuff-1 {
-            overflow-y: auto;
-            max-height: calc(100vh - 325px); /* Adjust according to your needs */
-            width: 100%;
-        }
-
-        #hidden-stuff-2 {
-            overflow-y: auto;
-            max-height: calc(100vh - 275px); /* Adjust according to your needs */
-            width: 100%;
-        }
-
-        /* Footer styles */
-        footer {
+        /* Snowflakes animation */
+        .snowflake {
             position: fixed;
-            bottom: 0;
+            top: -10px;
+            z-index: 9999;
+            user-select: none;
+            pointer-events: none;
+            color: rgba(255, 255, 255, 0.8);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Welcome Screen Styles */
+        #welcome-screen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .profile-frame {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 30px;
+            border-radius: 50%;
+            padding: 8px;
+            background: linear-gradient(135deg, #B91C1C, #047857, #FFC107);
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .profile-inner {
             width: 100%;
-            background-color: white; /* Match your background */
+            height: 100%;
+            border-radius: 50%;
             padding: 5px;
-            z-index: 999; /* Ensure footer is above other content */
+            background: white;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+
+        .start-btn {
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(185, 28, 28, 0.3);
+        }
+
+        .start-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(185, 28, 28, 0.4);
+        }
+
+        /* Scratch Game Styles */
+        #scratch-screen {
+            display: none;
+            min-height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        #scratch-canvas {
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            cursor: grab;
+            max-width: 100%;
+            touch-action: none;
+        }
+
+        #scratch-canvas:active {
+            cursor: grabbing;
+        }
+
+        .scratch-hint {
+            animation: bounce 2s ease-in-out infinite;
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        .unlocked-text {
-            font-family: 'Open Sans', sans-serif;
-            /* Add more styles if necessary */
-        }
-
-        /* Heartbeat animation */
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        /* Apply heartbeat animation to heart icon */
-        .heartbeat {
-            animation: heartbeat 1s infinite;
-        }
-
-        /* Add slight outline to heart icon */
-        .heart-outline {
-            -webkit-text-stroke: 0.5px black; /* Outline color and width */
-            -webkit-text-fill-color: red; /* Fill color */
-        }
-
-        /* Tab Styles */
-        .tab {
+        /* Prize Reveal Styles */
+        #prize-screen {
             display: none;
+            min-height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .tab.active {
-            display: block;
+        .fade-in {
+            animation: fadeIn 1.5s ease-in;
         }
 
-        .tab-button {
-            cursor: pointer;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
+        .scale-in {
+            animation: scaleIn 0.8s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Chocolate Rain */
+        .chocolate {
+            position: fixed;
+            font-size: 30px;
+            z-index: 1000;
+            pointer-events: none;
+            animation: chocolateFall linear infinite;
+        }
+
+        @keyframes chocolateFall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .sparkle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #FFC107;
+            border-radius: 50%;
+            animation: sparkleAnim 1s ease-out forwards;
+            pointer-events: none;
+            z-index: 1001;
+        }
+
+        @keyframes sparkleAnim {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        .gift-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen">
+<body>
+    <!-- Snowflakes Container -->
+    <div id="snowflakes-container"></div>
 
-<div id="birthday-div" class="w-full text-center flex flex-col items-center justify-center mt-4">
-    <img src="patti_new.jpg" alt="Portrait Image" class="portrait-image mx-auto mb-6 rounded-full h-48 w-48 object-cover">
-    <h1 id="birthday-message" class="text-3xl font-bold mb-3 transition-all duration-500 transform scale-100 opacity-100 unlocked-text">Round two!</h1>
-</div>
-
-<div id="hidden-stuff-2" class="hidden mt-4 px-4">
-    <h3 class="text-center unlocked-text">Słuchaj, ty mały gnojku, nie pogrywaj ze mną, bo zostawię cię na poboczu autostrady 😘😘</h3>
-</div>
-
-<div id="question-section" class="text-center unlocked-text">
-    <p id="message-0" class="mb-6">To celebrate that we made the crazy fucking decision of living together.. (even though we are two of the most stubborn idiots on this planet)</p>
-    <p id="message-3" class="mb-6">I'm taking you on a little trip to fuck knows where! 🙃</p>
-    <p id="message-1" class="mb-6">So put on that blindfold and trust me. 😌</p>
-    <div class="w-full sm:w-1/3 px-2 mt-5">
-        <i class="fas fa-heart text-red-500 text-4xl block text-center heartbeat heart-outline"></i>
-    </div>
-    <hr class="w-48 h-1 mx-auto my-4 bg-gray-200 border-0 rounded md:my-10 dark:bg-gray-700">
-    <p id="question" class="mb-3">Do you trust me?</p>
-    <button id="yesBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 sm:mr-2">Yes 🥹
-    </button>
-    <button id="nahBtn" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded sm:ml-2">Spierdalaj</button>
-</div>
-
-<!-- Tabs -->
-<div id="tab-buttons" class="text-center mb-4 hidden">
-    <button class="tab-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 sm:mr-2" data-target="section1">Day 1 (Fri)</button>
-    <button class="tab-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 sm:mr-2" data-target="section2">Day 2 (Sat)</button>
-    <button class="tab-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 sm:mr-2" data-target="section3">Day 3 (Sun)</button>
-</div>
-
-<!-- Sections -->
-<div id="hidden-stuff-1" class="hidden mt-4 px-4 w-full flex flex-wrap justify-center">
-    <p id="message-2" class="text-center mb-6 unlocked-text">Here you'll find your schedule for the next three days. Be sure to come back regularly, because with time, more information will become available. 😉</p>
-
-    <div id="section1" class="tab active">
-        <div class="w-full sm:w-1/3 px-2 mt-5">
-            <div class="section-card" id="section1-part1-content"></div>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen">
+        <div class="profile-frame">
+            <div class="profile-inner">
+                <img src="patti_new.jpg" alt="My Love" class="profile-img">
+            </div>
         </div>
-        <div class="w-full sm:w-1/3 px-2 mt-5">
-            <div class="section-card" id="section1-part2-content"></div>
+
+        <h1 class="dancing-font text-5xl md:text-6xl text-red-700 mb-4 text-center">
+            Merry Christmas, My Love!
+        </h1>
+
+        <div class="text-center mb-8 max-w-md">
+            <p class="text-gray-700 text-lg mb-4">
+                This Christmas, I have something special for you...
+            </p>
+            <p class="text-gray-600 text-base">
+                But you'll have to unwrap it first! 🎁
+            </p>
         </div>
-        <div class="w-full sm:w-1/3 px-2 mt-5">
-            <div class="section-card" id="section1-part3-content"></div>
-        </div>
-        <div class="w-full sm:w-1/3 px-2 mt-5">
-            <div class="section-card" id="section1-part4-content"></div>
+
+        <button onclick="startGame()" class="start-btn bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full text-xl heartbeat">
+            Unwrap Your Gift 🎁
+        </button>
+
+        <div class="mt-8 text-center">
+            <p class="text-sm text-gray-500 italic">Made with ❤️ for the most amazing woman</p>
         </div>
     </div>
-    <div id="section2" class="tab">
-        <div class="w-full sm:w-1/3 px-2 mt-5">
-            <div class="section-card" id="section2-part1-content"></div>
+
+    <!-- Scratch Screen -->
+    <div id="scratch-screen">
+        <h2 class="dancing-font text-4xl text-red-700 mb-6 text-center">
+            Scratch to Reveal Your Gift!
+        </h2>
+
+        <div class="mb-4 text-center scratch-hint">
+            <p class="text-gray-600">👆 Scratch with your finger or mouse</p>
         </div>
-        <div class="w-full sm:w-1/3 px-2 mt-5">
-            <div class="section-card" id="section2-part2-content"></div>
-        </div>
-        <div class="w-full sm:w-1/3 px-2 mt-5">
-            <div class="section-card" id="section2-part3-content"></div>
-        </div>
-        <div class="w-full sm:w-1/3 px-2 mt-5">
-            <div class="section-card" id="section2-part4-content"></div>
+
+        <canvas id="scratch-canvas" width="600" height="800"></canvas>
+
+        <div id="progress-container" class="mt-6 w-full max-w-md">
+            <div class="bg-gray-200 rounded-full h-4 overflow-hidden">
+                <div id="progress-bar" class="bg-gradient-to-r from-red-600 to-green-600 h-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+            <p class="text-center mt-2 text-sm text-gray-600">
+                <span id="progress-text">0%</span> revealed
+            </p>
         </div>
     </div>
-    <div id="section3" class="tab">
-        <div class="w-full sm:w-1/3 px-2 mt-5">
-            <div class="section-card" id="section3-part1-content"></div>
+
+    <!-- Prize Reveal Screen -->
+    <div id="prize-screen">
+        <!-- Stage 1: Opening Message -->
+        <div id="stage-1" class="gift-card fade-in text-center">
+            <h2 class="dancing-font text-4xl md:text-5xl text-red-700 mb-6">
+                My Dearest Love ❤️
+            </h2>
+            <p class="text-gray-700 text-lg mb-4 leading-relaxed">
+                Every moment with you is sweeter than the finest chocolate.
+            </p>
+            <p class="text-gray-700 text-lg mb-4 leading-relaxed">
+                This Christmas, I want to create another beautiful memory together...
+            </p>
+            <p class="text-gray-600 text-base italic">
+                Something delicious, creative, and absolutely perfect for us.
+            </p>
+        </div>
+
+        <!-- Stage 2: Teaser -->
+        <div id="stage-2" class="hidden gift-card scale-in text-center">
+            <h3 class="dancing-font text-3xl text-green-700 mb-4">
+                Get ready for something sweet... 🍫
+            </h3>
+            <p class="text-gray-600 text-lg">
+                (And I'm not just talking about you 😘)
+            </p>
+        </div>
+
+        <!-- Chocolate Rain will appear here -->
+        <div id="chocolate-container"></div>
+
+        <!-- Stage 3: The Big Reveal -->
+        <div id="stage-3" class="hidden gift-card scale-in text-center">
+            <h2 class="dancing-font text-5xl text-red-700 mb-6">
+                🍫 Bonbon Workshop! 🍫
+            </h2>
+
+            <div class="mb-6">
+                <p class="text-gray-700 text-xl mb-4 font-semibold">
+                    We're going to make chocolates together!
+                </p>
+                <p class="text-gray-600 text-base mb-4 leading-relaxed">
+                    Join me for a magical bonbon-making workshop where we'll create our own delicious chocolates from scratch.
+                </p>
+                <p class="text-gray-600 text-base mb-4 leading-relaxed">
+                    We'll learn from professionals, get creative with flavors, and most importantly...
+                </p>
+                <p class="text-gray-700 text-lg font-semibold">
+                    We'll spend quality time together doing something fun and delicious! 💕
+                </p>
+            </div>
+
+            <div class="bg-red-50 rounded-lg p-6 mb-4">
+                <p class="text-red-700 text-sm mb-2">🎄 Your Christmas Gift 🎄</p>
+                <p class="text-gray-700 font-semibold text-lg">Bonbon Making Workshop for Two</p>
+                <p class="text-gray-600 text-sm mt-2">Date: To be planned together ❤️</p>
+            </div>
+
+            <div class="text-center mt-6">
+                <p class="text-gray-600 italic text-sm">
+                    I can't wait to see what sweet creations we'll make together!
+                </p>
+                <p class="dancing-font text-2xl text-red-600 mt-4">
+                    I love you! ❤️
+                </p>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    // Function to check if it's the specified date and time
-    function isAvailable(dateTime) {
-        var now = new Date();
-        var availableTime = new Date(dateTime);
-        return now >= availableTime;
-    }
+    <script>
+        // Create snowflakes
+        function createSnowflakes() {
+            const container = document.getElementById('snowflakes-container');
+            const snowflakes = ['❄', '❅', '❆'];
 
-    // JavaScript code
-    document.getElementById('yesBtn').addEventListener('click', function () {
-        document.getElementById('hidden-stuff-1').classList.remove('hidden');
-        document.getElementById('hidden-stuff-2').classList.add('hidden');
-        document.getElementById('question-section').classList.add('hidden');
-        document.getElementById('birthday-div').classList.add('mt-4');
-        document.getElementById('tab-buttons').classList.remove('hidden');
+            for (let i = 0; i < 20; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(snowflake);
+            }
+        }
 
-        // Add focus to a non-focusable element to prevent automatic scrolling
-        document.getElementById('birthday-div').focus();
-    });
+        // Start the game
+        function startGame() {
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('scratch-screen').style.display = 'flex';
+            initScratchCard();
+        }
 
-    document.getElementById('nahBtn').addEventListener('click', function () {
-        document.getElementById('hidden-stuff-2').classList.remove('hidden');
-        document.getElementById("nahBtn").classList.add('hidden');
-        document.getElementById("message-0").classList.add('hidden');
-        document.getElementById("message-1").classList.add('hidden');
-        document.getElementById("message-3").classList.add('hidden');
-        document.getElementById("tab-buttons").classList.add('hidden');
-        document.getElementById("started").classList.add('hidden');
-        document.getElementById('birthday-div').classList.add('mt-2');
-        document.getElementById("question").innerText = "ARE YOU EXCITED WOMAN?? PT2";
-        document.getElementById("yesBtn").innerText = "Dobrze.... 😒"
-    });
+        // Scratch card implementation
+        let canvas, ctx, isDrawing = false, scratchedPercent = 0;
 
-    // Show or hide sections based on current date and time
-    if (isAvailable('2024-05-10T10:30:00')) {
-        document.getElementById('section1-part1-content').innerHTML = `
-            <div class="w-full h-64 overflow-hidden">
-                <img class="object-cover w-full h-full" src="car_ride.png" alt="Section 1 Image">
-            </div>
-            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-            <div class="section-content text-center">
-                <h2 class="text-lg font-semibold mb-2">Any idea where we are going yet?</h2>
-                <p class="text-gray-600">HA HA you thought you were getting some info? You're not. Too bad 🥱</p>
-                <p class="text-gray-600">Get comfortable, we got a long drive ahead of us, and make sure not to peek, asshole!</p>
-            </div>
-        `;
-    } else {
-        document.getElementById('section1-part1-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 10-05-2024 @ 10:30</p>';
-    }
+        function initScratchCard() {
+            canvas = document.getElementById('scratch-canvas');
+            ctx = canvas.getContext('2d');
 
-    if (isAvailable('2024-05-10T14:30:00')) {
-        document.getElementById('section1-part2-content').innerHTML = `
-            <div class="w-full h-64 overflow-hidden">
-                <img class="object-cover w-full h-full" src="patka.png" alt="Section 1 Image">
-            </div>
-            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-            <div class="section-content text-center">
-                <h2 class="text-lg font-semibold mb-2">Raging alcoholic time!!</h2>
-                <p class="text-gray-600">As usual, we are the best at thinking about booze, so let's get the mindset right.</p>
-                <p class="mt-2 text-gray-600">There are a few places we want to visit, but it doesn't come COMPLETELY without effort..</p>
-            </div>
-        `;
-    } else {
-        document.getElementById('section1-part2-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 10-05-2024 @ 14:30</p>';
-    }
+            // Adjust canvas for mobile
+            const maxWidth = Math.min(600, window.innerWidth - 40);
+            const maxHeight = Math.min(800, window.innerHeight - 300);
+            canvas.width = maxWidth;
+            canvas.height = maxHeight;
 
-    if (isAvailable('2024-05-10T18:00:00')) {
-        document.getElementById('section1-part3-content').innerHTML = `
-            <div class="w-full h-64 overflow-hidden">
-                <img class="object-cover w-full h-full" src="vegetarian.png" alt="Section 1 Image">
-            </div>
-            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-            <div class="section-content text-center">
-                <h2 class="text-lg font-semibold mb-2">I guess you're hangry about now..</h2>
-                <p class="text-gray-600">Yes, yes.. I love you very much, so I will valiantly lay down my craving for meat.. that's all I'm saying.</p>
-            </div>
-        `;
-    } else {
-        document.getElementById('section1-part3-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 10-05-2024 @ 18:00</p>';
-    }
+            // Draw wrapping paper
+            drawWrappingPaper();
 
-    if (isAvailable('2024-05-10T20:30:00')) {
-        document.getElementById('section1-part4-content').innerHTML = `
-            <div class="w-full h-64 overflow-hidden">
-                <img class="object-cover w-full h-full" src="sauna.png" alt="Section 1 Image">
-            </div>
-            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-            <div class="section-content text-center">
-                <h2 class="text-lg font-semibold mb-2">You finally have a choice! (You wish)</h2>
-                <p class="text-gray-600">There's something waiting for us back at the hotel, but in the meantime you get to choose what we do. 😏</p>
-            </div>
-        `;
-    } else {
-        document.getElementById('section1-part4-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 10-05-2024 @ 20:30</p>';
-    }
+            // Draw hidden gift underneath
+            drawGiftImage();
 
-    if (isAvailable('2024-05-11T08:00:00')) {
-        document.getElementById('section2-part1-content').innerHTML = `
-            <div class="w-full h-64 overflow-hidden">
-                <img class="object-cover w-full h-full" src="breakfast.png" alt="Section 1 Image">
-            </div>
-            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-            <div class="section-content text-center">
-                <h2 class="text-lg font-semibold mb-2">Good morning boo 😘</h2>
-                <p class="text-gray-600">Hope you enjoyed the last day, cause we're far from done!</p>
-                <p class="text-gray-600">We got a busy day ahead of us, but for this one you finally get to have a say in our decisions! (for a part xd)</p>
-                <p class="text-gray-600">Let's get some breakfast in first, maybe hit the gym, who knows...</p>
-            </div>
-        `;
-    } else {
-        document.getElementById('section2-part1-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 11-05-2024 @ 08:00</p>';
-    }
+            // Mouse events
+            canvas.addEventListener('mousedown', startScratching);
+            canvas.addEventListener('mousemove', scratch);
+            canvas.addEventListener('mouseup', stopScratching);
+            canvas.addEventListener('mouseleave', stopScratching);
 
-    if (isAvailable('2024-05-11T09:30:00')) {
-        document.getElementById('section2-part2-content').innerHTML = `
-            <div class="w-full h-64 overflow-hidden">
-                <img class="object-cover w-full h-full" src="madurodam.png" alt="Section 1 Image">
-            </div>
-            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-            <div class="section-content text-center">
-                <h2 class="text-lg font-semibold mb-2">Don't you just love it when I call you mały dziewczyna?</h2>
-                <p class="text-gray-600">You finally won't feel small anymore, I can promise you that XD</p>
-                <p class="text-gray-600">Just follow me and smile!</p>
-            </div>
-        `;
-    } else {
-        document.getElementById('section2-part2-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 11-05-2024 @ 09:30</p>';
-    }
+            // Touch events
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', stopScratching);
+        }
 
-    if (isAvailable('2024-05-11T11:15:00')) {
-        document.getElementById('section2-part3-content').innerHTML = `
-            <div class="w-full h-64 overflow-hidden">
-                <img class="object-cover w-full h-full" src="mauritshuis.png" alt="Section 1 Image">
-            </div>
-            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-            <div class="section-content text-center">
-                <h2 class="text-lg font-semibold mb-2">The Netherlands has culture, trust me</h2>
-                <p class="text-gray-600">You know how much I like to avoid a museum.... but even I make exceptions now and then 😒</p>
+        function drawWrappingPaper() {
+            // Create festive wrapping paper pattern
+            ctx.fillStyle = '#B91C1C'; // Red background
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            </div>
-        `;
-    } else {
-        document.getElementById('section2-part3-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 11-05-2024 @ 11:15</p>';
-    }
+            // Add Christmas patterns
+            ctx.strokeStyle = '#047857';
+            ctx.lineWidth = 3;
 
-    if (isAvailable('2024-05-11T16:00:00')) {
-        document.getElementById('section2-part4-content').innerHTML = `
-            <div class="w-full h-64 overflow-hidden">
-                <img class="object-cover w-full h-full" src="food.png" alt="Section 1 Image">
-            </div>
-            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-            <div class="section-content text-center">
-                <h2 class="text-lg font-semibold mb-2">You decide!</h2>
-                <p class="text-gray-600">I do have a few options for dinner as usual, you know me... can't stop doing some research on that matter</p>
-                <p class="text-gray-600">The rest is entirely up to you though!</p>
-            </div>
-        `;
-    } else {
-        document.getElementById('section2-part4-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 11-05-2024 @ 16:00</p>';
-    }
+            // Draw diagonal stripes
+            for (let i = -canvas.height; i < canvas.width + canvas.height; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i + canvas.height, canvas.height);
+                ctx.stroke();
+            }
 
-    if (isAvailable('2024-05-11T08:00:00')) {
-        document.getElementById('section3-part1-content').innerHTML = `
-            <div class="w-full h-64 overflow-hidden">
-                <img class="object-cover w-full h-full" src="westfield.png" alt="Section 1 Image">
-            </div>
-            <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-            <div class="section-content text-center">
-                <h2 class="text-lg font-semibold mb-2">Time to go home! But first...</h2>
-                <p class="text-gray-600">One last thing I gotta show you, you'll love it!</p>
-            </div>
-        `;
-    } else {
-        document.getElementById('section3-part1-content').innerHTML = '<p class="text-center unlocked-text text-gray-500"><i class="fas fa-lock"></i> Unlocked at 12-05-2024 @ 08:00</p>';
-    }
+            // Add gold dots
+            ctx.fillStyle = '#FFC107';
+            for (let x = 20; x < canvas.width; x += 60) {
+                for (let y = 20; y < canvas.height; y += 60) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, 8, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
 
-    // Function to handle tab switching
-    document.querySelectorAll('.tab-button').forEach(button => {
-        button.addEventListener('click', function () {
-            const target = this.getAttribute('data-target');
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.getElementById(target).classList.add('active');
-        });
-    });
+            // Add overlay text
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.font = 'bold 40px Dancing Script';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🎁', canvas.width / 2, canvas.height / 2 - 40);
+            ctx.font = 'bold 30px Poppins';
+            ctx.fillText('Scratch Here!', canvas.width / 2, canvas.height / 2 + 20);
 
-</script>
+            // Set composite operation for scratching
+            ctx.globalCompositeOperation = 'destination-out';
+        }
+
+        function drawGiftImage() {
+            // This will be visible underneath the wrapping paper
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            const tempCtx = tempCanvas.getContext('2d');
+
+            // Draw gift box
+            const boxWidth = canvas.width * 0.6;
+            const boxHeight = canvas.height * 0.5;
+            const boxX = (canvas.width - boxWidth) / 2;
+            const boxY = canvas.height * 0.3;
+
+            // Box body
+            tempCtx.fillStyle = '#B91C1C';
+            tempCtx.fillRect(boxX, boxY, boxWidth, boxHeight);
+
+            // Box ribbon
+            tempCtx.fillStyle = '#FFC107';
+            const ribbonWidth = boxWidth * 0.15;
+            tempCtx.fillRect(boxX + boxWidth / 2 - ribbonWidth / 2, boxY, ribbonWidth, boxHeight);
+            tempCtx.fillRect(boxX, boxY + boxHeight / 2 - ribbonWidth / 2, boxWidth, ribbonWidth);
+
+            // Bow
+            tempCtx.beginPath();
+            tempCtx.arc(boxX + boxWidth / 2, boxY + boxHeight / 2, boxWidth * 0.15, 0, Math.PI * 2);
+            tempCtx.fill();
+
+            // Text
+            tempCtx.fillStyle = '#047857';
+            tempCtx.font = 'bold 32px Dancing Script';
+            tempCtx.textAlign = 'center';
+            tempCtx.fillText('For You ❤️', canvas.width / 2, boxY + boxHeight + 50);
+
+            // Place under main canvas
+            canvas.style.backgroundImage = `url(${tempCanvas.toDataURL()})`;
+            canvas.style.backgroundSize = 'cover';
+        }
+
+        function startScratching(e) {
+            isDrawing = true;
+            scratch(e);
+        }
+
+        function stopScratching() {
+            isDrawing = false;
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            isDrawing = true;
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            scratchAt(touch.clientX - rect.left, touch.clientY - rect.top);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            if (!isDrawing) return;
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            scratchAt(touch.clientX - rect.left, touch.clientY - rect.top);
+        }
+
+        function scratch(e) {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            scratchAt(e.clientX - rect.left, e.clientY - rect.top);
+        }
+
+        function scratchAt(x, y) {
+            // Scale coordinates
+            const scaleX = canvas.width / canvas.offsetWidth;
+            const scaleY = canvas.height / canvas.offsetHeight;
+            x *= scaleX;
+            y *= scaleY;
+
+            ctx.beginPath();
+            ctx.arc(x, y, 30, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Check scratch progress
+            checkProgress();
+        }
+
+        let lastCheck = 0;
+        function checkProgress() {
+            const now = Date.now();
+            if (now - lastCheck < 200) return; // Throttle checks
+            lastCheck = now;
+
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let transparent = 0;
+
+            for (let i = 3; i < imageData.data.length; i += 4) {
+                if (imageData.data[i] < 128) transparent++;
+            }
+
+            scratchedPercent = Math.round((transparent / (imageData.data.length / 4)) * 100);
+
+            document.getElementById('progress-bar').style.width = scratchedPercent + '%';
+            document.getElementById('progress-text').textContent = scratchedPercent + '%';
+
+            if (scratchedPercent >= 60 && !window.revealStarted) {
+                window.revealStarted = true;
+                setTimeout(revealGift, 500);
+            }
+        }
+
+        function revealGift() {
+            document.getElementById('scratch-screen').style.display = 'none';
+            document.getElementById('prize-screen').style.display = 'flex';
+
+            // Show stages with delays
+            setTimeout(() => {
+                document.getElementById('stage-1').classList.remove('hidden');
+            }, 500);
+
+            setTimeout(() => {
+                document.getElementById('stage-1').classList.add('hidden');
+                document.getElementById('stage-2').classList.remove('hidden');
+            }, 5000);
+
+            setTimeout(() => {
+                startChocolateRain();
+            }, 7000);
+
+            setTimeout(() => {
+                document.getElementById('stage-2').classList.add('hidden');
+                document.getElementById('stage-3').classList.remove('hidden');
+                stopChocolateRain();
+                createSparkles();
+            }, 10000);
+        }
+
+        // Chocolate rain effect
+        let chocolateInterval;
+        function startChocolateRain() {
+            const chocolates = ['🍫', '🍬', '🍭', '🍰', '🧁', '🍩'];
+            chocolateInterval = setInterval(() => {
+                const chocolate = document.createElement('div');
+                chocolate.className = 'chocolate';
+                chocolate.textContent = chocolates[Math.floor(Math.random() * chocolates.length)];
+                chocolate.style.left = Math.random() * 100 + '%';
+                chocolate.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                document.getElementById('chocolate-container').appendChild(chocolate);
+
+                setTimeout(() => chocolate.remove(), 6000);
+            }, 200);
+        }
+
+        function stopChocolateRain() {
+            clearInterval(chocolateInterval);
+            setTimeout(() => {
+                document.getElementById('chocolate-container').innerHTML = '';
+            }, 3000);
+        }
+
+        function createSparkles() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.top = Math.random() * 100 + '%';
+                    document.body.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 1000);
+                }, i * 50);
+            }
+        }
+
+        // Initialize snowflakes on page load
+        createSnowflakes();
+    </script>
 </body>
 </html>
