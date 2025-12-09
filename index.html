@@ -94,7 +94,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
-            background: linear-gradient(135deg, #FDE2E4 0%, #FAD9E0 50%, #FDE2E4 100%);
+            background: linear-gradient(135deg, #DC143C 0%, #FFD700 50%, #DC143C 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             min-height: 100vh;
@@ -111,7 +111,8 @@
             z-index: 9999;
             user-select: none;
             pointer-events: none;
-            color: rgba(255, 255, 255, 0.8);
+            color: white;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
             animation: fall linear infinite;
         }
 
@@ -130,6 +131,29 @@
             justify-content: center;
             padding: 20px;
             position: relative;
+            animation: fadeInScale 1s ease-out;
+        }
+
+        #welcome-screen.fade-out {
+            animation: zoomOut 0.8s ease-in forwards;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes zoomOut {
+            to {
+                opacity: 0;
+                transform: scale(1.2);
+            }
         }
 
         /* Polaroid Photo Frame */
@@ -145,6 +169,33 @@
             .polaroid-frame {
                 width: 240px;
             }
+        }
+
+        /* Christmas lights around polaroid */
+        .polaroid-frame::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border-radius: 4px;
+            background: linear-gradient(
+                90deg,
+                #ff0000 0%, #00ff00 10%, #ffff00 20%, #ff0000 30%,
+                #00ff00 40%, #ffff00 50%, #ff0000 60%, #00ff00 70%,
+                #ffff00 80%, #ff0000 90%, #00ff00 100%
+            );
+            background-size: 200% 100%;
+            animation: lights-move 3s linear infinite;
+            z-index: -1;
+            filter: blur(2px);
+            opacity: 0.8;
+        }
+
+        @keyframes lights-move {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
 
         @keyframes spin-polaroid {
@@ -237,6 +288,32 @@
             justify-content: center;
             padding: 20px;
             position: relative;
+        }
+
+        #quiz-screen.show {
+            animation: slideInFromRight 0.8s ease-out;
+        }
+
+        #quiz-screen.fade-out {
+            animation: slideOutToLeft 0.8s ease-in forwards;
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOutToLeft {
+            to {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
         }
 
         .quiz-card {
@@ -375,6 +452,27 @@
             position: relative;
         }
 
+        #scratch-screen.show {
+            animation: bounceIn 1s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(-100%);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05) translateY(0);
+            }
+            70% {
+                transform: scale(0.95);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
         #scratch-canvas {
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -424,6 +522,21 @@
             padding: 20px;
             position: relative;
             overflow: hidden;
+        }
+
+        #prize-screen.show {
+            animation: spiralIn 1.2s ease-out;
+        }
+
+        @keyframes spiralIn {
+            0% {
+                opacity: 0;
+                transform: rotate(720deg) scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
         }
 
         .fade-in {
@@ -506,32 +619,32 @@
 
         /* Question transition animations */
         .question-fade-out {
-            animation: fadeOut 0.5s ease-out forwards;
+            animation: slideOutLeft 0.5s ease-in forwards;
         }
 
         .question-fade-in {
-            animation: fadeInUp 0.8s ease-out forwards;
+            animation: slideInRight 0.6s ease-out forwards;
         }
 
-        @keyframes fadeOut {
+        @keyframes slideOutLeft {
             from {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateX(0) scale(1);
             }
             to {
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateX(-100%) scale(0.8);
             }
         }
 
-        @keyframes fadeInUp {
+        @keyframes slideInRight {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateX(100%) scale(0.8);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateX(0) scale(1);
             }
         }
     </style>
@@ -562,7 +675,7 @@
             </div>
         </div>
 
-        <h1 class="dancing-font text-4xl sm:text-5xl md:text-6xl text-red-700 mb-6 text-center px-4">
+        <h1 class="dancing-font text-4xl sm:text-5xl md:text-6xl text-red-700 mb-6 text-center px-4" style="text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.5);">
             Wesołych Świąt, Kochanie!
         </h1>
 
@@ -665,11 +778,13 @@
                 <p class="text-gray-600 text-sm sm:text-base mb-4 leading-relaxed">
                     We'll learn from professionals, get creative with flavors, and most importantly...
                 </p>
+                <p class="text-gray-600 text-sm sm:text-base mb-4 leading-relaxed">
+                    Get to eat it 🤤
             </div>
 
             <div class="bg-red-50 rounded-lg p-4 sm:p-6 mb-4">
                 <p class="text-red-700 text-xs sm:text-sm mb-2">🎄 Your Christmas Gift 🎄</p>
-                <p class="text-gray-700 font-semibold text-base sm:text-lg">Bonbon Making Workshop for Two</p>
+                <p class="text-gray-700 font-semibold text-base sm:text-lg">Bonbon Making Workshop</p>
                 <p class="text-gray-600 text-xs sm:text-sm mt-2">Date: To be planned together ❤️</p>
             </div>
         </div>
@@ -720,15 +835,15 @@
             const container = document.getElementById('snowflakes-container');
             const snowflakes = ['❄', '❅', '❆'];
 
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 50; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
                 snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
                 snowflake.style.left = Math.random() * 100 + '%';
-                snowflake.style.fontSize = (Math.random() * 20 + 10) + 'px';
-                snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                snowflake.style.fontSize = (Math.random() * 30 + 15) + 'px';
+                snowflake.style.animationDuration = (Math.random() * 10 + 8) + 's';
                 snowflake.style.animationDelay = Math.random() * 5 + 's';
-                snowflake.style.opacity = (Math.random() * 0.6 + 0.4).toString();
+                snowflake.style.opacity = (Math.random() * 0.5 + 0.6).toString();
                 container.appendChild(snowflake);
             }
         }
@@ -756,10 +871,19 @@
 
         // Start quiz
         function startQuiz() {
-            document.getElementById('welcome-screen').style.display = 'none';
-            document.getElementById('quiz-screen').style.display = 'flex';
-            document.getElementById('total-questions').textContent = quizQuestions.length;
-            showQuestion(true); // Animate first question on entry
+            const welcomeScreen = document.getElementById('welcome-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+
+            // Zoom out welcome screen
+            welcomeScreen.classList.add('fade-out');
+
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                quizScreen.style.display = 'flex';
+                quizScreen.classList.add('show');
+                document.getElementById('total-questions').textContent = quizQuestions.length;
+                showQuestion(true); // Animate first question on entry
+            }, 800);
         }
 
         // Display current question
@@ -858,19 +982,32 @@
             setTimeout(() => {
                 currentQuestionIndex++;
                 if (currentQuestionIndex < quizQuestions.length) {
+                    // Clear the old question first
+                    container.innerHTML = '';
+                    // Show new question immediately after clearing
                     showQuestion(true);
                 } else {
                     // Quiz completed! Celebrate with confetti!
                     createConfetti();
 
-                    // Wait for confetti to start, then transition to scratch game
+                    const quizScreen = document.getElementById('quiz-screen');
+                    const scratchScreen = document.getElementById('scratch-screen');
+
+                    // Slide out quiz screen
                     setTimeout(() => {
-                        document.getElementById('quiz-screen').style.display = 'none';
-                        document.getElementById('scratch-screen').style.display = 'flex';
+                        quizScreen.classList.add('fade-out');
+                    }, 1000);
+
+                    // Wait for confetti and transition, then show scratch game
+                    setTimeout(() => {
+                        quizScreen.style.display = 'none';
+                        quizScreen.classList.remove('fade-out', 'show');
+                        scratchScreen.style.display = 'flex';
+                        scratchScreen.classList.add('show');
                         initScratchCard();
-                    }, 1500);
+                    }, 1800);
                 }
-            }, 600); // Wait for fade-out animation (0.5s) plus small buffer
+            }, 550); // Wait for fade-out animation to complete (0.5s)
         }
 
         // Start the game (legacy function for scratch card)
@@ -1110,8 +1247,12 @@
         }
 
         function revealGift() {
-            document.getElementById('scratch-screen').style.display = 'none';
-            document.getElementById('prize-screen').style.display = 'flex';
+            const scratchScreen = document.getElementById('scratch-screen');
+            const prizeScreen = document.getElementById('prize-screen');
+
+            scratchScreen.style.display = 'none';
+            prizeScreen.style.display = 'flex';
+            prizeScreen.classList.add('show');
 
             // Skip stage 1, go directly to stage 2
             setTimeout(() => {
