@@ -621,6 +621,117 @@
             display: none !important;
         }
 
+        /* Coupon Modal Styles */
+        #coupon-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10001;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        #coupon-modal.show {
+            display: flex;
+            animation: fadeInModal 0.4s ease-out;
+        }
+
+        @keyframes fadeInModal {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .coupon-container {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            animation: slideUpBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes slideUpBounce {
+            0% {
+                opacity: 0;
+                transform: translateY(100px) scale(0.8) rotate(-5deg);
+            }
+            70% {
+                transform: translateY(-10px) scale(1.05) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+        }
+
+        .coupon-image {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 15px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            border: 3px solid #FFC107;
+        }
+
+        .close-coupon-btn {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #B91C1C, #DC143C);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 5px 20px rgba(185, 28, 28, 0.6);
+            transition: all 0.3s ease;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .close-coupon-btn:hover {
+            transform: scale(1.2) rotate(90deg);
+            box-shadow: 0 8px 30px rgba(185, 28, 28, 0.8);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .coupon-sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            animation: twinkleStar 1.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes twinkleStar {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1) rotate(180deg);
+            }
+        }
+
         /* Question transition animations */
         .question-fade-out {
             animation: fadeOutSimple 0.4s ease-out forwards;
@@ -782,11 +893,25 @@
                     Get to eat it 🤤
             </div>
 
-            <div class="bg-red-50 rounded-lg p-4 sm:p-6 mb-4">
+            <div class="bg-red-50 rounded-lg p-4 sm:p-6 mb-4 cursor-pointer hover:bg-red-100 transition-all duration-300 transform hover:scale-105" onclick="showCoupon()">
                 <p class="text-red-700 text-xs sm:text-sm mb-2">🎄 Your Christmas Gift 🎄</p>
                 <p class="text-gray-700 font-semibold text-base sm:text-lg">Bonbon Making Workshop</p>
                 <p class="text-gray-600 text-xs sm:text-sm mt-2">Date: To be planned together ❤️</p>
+                <p class="text-red-600 text-xs sm:text-sm mt-3 font-semibold">👆 Click to see your coupon!</p>
             </div>
+        </div>
+    </div>
+
+    <!-- Coupon Modal -->
+    <div id="coupon-modal" onclick="closeCoupon(event)">
+        <div class="coupon-container">
+            <div class="close-coupon-btn" onclick="closeCoupon(event)">×</div>
+            <img src="coupon.png" alt="Your Bonbon Workshop Coupon" class="coupon-image">
+            <!-- Sparkle decorations -->
+            <div class="coupon-sparkle" style="top: -10px; left: 10%; font-size: 30px;">✨</div>
+            <div class="coupon-sparkle" style="top: -5px; right: 15%; font-size: 25px; animation-delay: 0.3s;">⭐</div>
+            <div class="coupon-sparkle" style="bottom: -10px; left: 20%; font-size: 28px; animation-delay: 0.6s;">💫</div>
+            <div class="coupon-sparkle" style="bottom: -5px; right: 10%; font-size: 26px; animation-delay: 0.9s;">✨</div>
         </div>
     </div>
 
@@ -1368,6 +1493,46 @@
                 }, i * 50);
             }
         }
+
+        // Coupon Modal Functions
+        function showCoupon() {
+            const modal = document.getElementById('coupon-modal');
+            modal.classList.add('show');
+
+            // Add confetti celebration
+            if (jsConfetti) {
+                jsConfetti.addConfetti({
+                    confettiColors: ['#FFC107', '#B91C1C', '#047857', '#FFD700', '#DC143C'],
+                    confettiRadius: 6,
+                    confettiNumber: 150,
+                });
+            }
+
+            // Prevent body scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCoupon(event) {
+            // Only close if clicking the background or close button
+            if (event.target.id === 'coupon-modal' || event.target.classList.contains('close-coupon-btn')) {
+                const modal = document.getElementById('coupon-modal');
+                modal.classList.remove('show');
+
+                // Re-enable body scrolling
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modal = document.getElementById('coupon-modal');
+                if (modal.classList.contains('show')) {
+                    modal.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
 
         // Initialize snowflakes on page load
         createSnowflakes();
